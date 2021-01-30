@@ -1,0 +1,22 @@
+Package: jamesreferences
+Type: Package
+Title: Growth References for JAMES
+Version: 0.1.0
+Author: Stef van Buuren
+Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
+Description: Collects the growth references for the JAMES system. The 
+    package imports REF formatted files, and stores each references as a
+    lazy loaded objects.
+Encoding: UTF-8
+LazyData: true
+License: AGPL-3
+Copyright: Stef van Buuren 2021
+URL: https://github.com/stefvanbuuren/jamesreferences
+Depends: 
+    R (>= 2.10)
+Imports:
+    zoo
+Suggests: 
+    clopus (>= 0.57.0),
+    devtools
+RoxygenNote: 7.1.1
