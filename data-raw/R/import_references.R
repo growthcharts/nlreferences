@@ -7,19 +7,15 @@ library(zoo)
 path <- system.file("reflib", package = "clopus")
 libs <- c("nl1997", "preterm", "dscore")
 
-make_refname <- function(m) {
-  m <- m[c("name", "year", "yname", "sex", "sub")]
-  m[is.na(m)] <- ""
-  paste(m, collapse = "_")
-}
-
 for (lib in libs) {
   files <- list.files(file.path(path, lib))
   for (file in files) {
     ref <- clopus::read_ref(file.path(path, lib, file))
     study <- attr(ref, "study")
-    refname <- make_refname(study)
-    ref <- zoo(ref[!names(ref) %in% "x"], order.by = ref[["x"]])
+    m <- study[c("name", "year", "yname", "sex", "sub")]
+    m[is.na(m)] <- ""
+    refname <- paste(m, collapse = "_")
+    ref <- zoo::zoo(ref[!names(ref) %in% "x"], order.by = ref[["x"]])
     attr(ref, "study") <- study
     assign(refname, ref)
   }
