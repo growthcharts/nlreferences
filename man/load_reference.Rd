@@ -23,7 +23,7 @@ Currently not implemented.}
 \value{
 The return value depends on the \code{element} parameter.\tabular{ll}{
    \code{element} \tab Return value \cr
-   \code{"table"} \tab Object of class \code{zoo}, no \code{study} attribute \cr
+   \code{"table"} \tab A \code{tibble} with reference values \cr
    \code{"index"} \tab Numeric vector with index values \cr
    \code{"study"} \tab Named character vector with study data \cr
    \code{"all"} \tab All stored information \cr

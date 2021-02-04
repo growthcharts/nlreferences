@@ -11,7 +11,7 @@
 #'
 #' `element` | Return value
 #' --------- | ---------------------------------------
-#' `"table"` | Object of class `zoo`, no `study` attribute
+#' `"table"` | A `tibble` with reference values
 #' `"index"` | Numeric vector with index values
 #' `"study"` | Named character vector with study data
 #' `"all"`   | All stored information
@@ -36,7 +36,7 @@ load_reference <- function(refcode = NULL,
       attr(ref, "study") <- NULL
       ref
     },
-    index = zoo::index(ref),
+    index = ref[["x"]],
     study = attr(ref, "study"),
     all = ref
   )

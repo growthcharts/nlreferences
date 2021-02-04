@@ -8,8 +8,6 @@ for (lib in libs) {
     ref <- jamesreferences::read_ref(file.path(path, lib, file))
     s <- attr(ref, "study")
     refcode <- jamesreferences::make_refcode(s["name"], s["year"], s["yname"], s["sex"], s["sub"])
-    ref <- zoo::zoo(ref[!names(ref) %in% "x"], order.by = ref[["x"]])
-    attr(ref, "study") <- s
     assign(refcode, ref)
   }
 }
