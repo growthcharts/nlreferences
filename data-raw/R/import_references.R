@@ -1,23 +1,16 @@
 # import selected references
-
-library(clopus)
-library(usethis)
-library(zoo)
-
 path <- file.path("data-raw/data")
 libs <- c("nl1997", "preterm", "dscore")
 
 for (lib in libs) {
   files <- list.files(file.path(path, lib))
   for (file in files) {
-    ref <- clopus::read_ref(file.path(path, lib, file))
-    study <- attr(ref, "study")
-    m <- study[c("name", "year", "yname", "sex", "sub")]
-    m[is.na(m)] <- ""
-    refname <- paste(m, collapse = "_")
+    ref <- jamesreferences::read_ref(file.path(path, lib, file))
+    s <- attr(ref, "study")
+    refcode <- jamesreferences::make_refcode(s["name"], s["year"], s["yname"], s["sex"], s["sub"])
     ref <- zoo::zoo(ref[!names(ref) %in% "x"], order.by = ref[["x"]])
-    attr(ref, "study") <- study
-    assign(refname, ref)
+    attr(ref, "study") <- s
+    assign(refcode, ref)
   }
 }
 
