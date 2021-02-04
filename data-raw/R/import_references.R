@@ -4,7 +4,7 @@ library(clopus)
 library(usethis)
 library(zoo)
 
-path <- system.file("reflib", package = "clopus")
+path <- file.path("data-raw/data")
 libs <- c("nl1997", "preterm", "dscore")
 
 for (lib in libs) {
