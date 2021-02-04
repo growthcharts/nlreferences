@@ -1,0 +1,41 @@
+name = nl
+year = 1997
+yname = hdc
+sex = male
+sub = tu
+distribution = LMS
+citation = Fredriks2003
+publication = Fredriks AM, van Buuren S, Jeurissen SER, Dekker FW, Verloove-Vanhorick SP & Wit JM (2003). Height, weight, body mass index and pubertal development reference values for children of Turkish origin in the Netherlands. European Journal of Pediatrics, 162(11), 788-793.
+[data]
+x	L	M	S
+0	1	36.2	0.0299
+0.0192	1	36.62	0.0296
+0.0383	1	37.02	0.0293
+0.0575	1	37.41	0.0291
+0.0767	1	37.79	0.0288
+0.0958	1	38.17	0.0286
+0.115	1	38.53	0.0284
+0.1342	1	38.91	0.0281
+0.1533	1	39.31	0.0279
+0.1725	1	39.71	0.0276
+0.1916	1	40.09	0.0274
+0.23	1	40.81	0.0269
+0.2683	1	41.43	0.0264
+0.3066	1	41.97	0.026
+0.345	1	42.46	0.0256
+0.3833	1	42.92	0.0252
+0.4216	1	43.36	0.025
+0.46	1	43.78	0.0249
+0.4983	1	44.15	0.0248
+0.5366	1	44.48	0.0247
+0.6133	1	45.04	0.0247
+0.6899	1	45.5	0.0247
+0.7666	1	45.92	0.0246
+0.8433	1	46.32	0.0246
+0.9199	1	46.69	0.0246
+0.9966	1	47.01	0.0246
+1.0732	1	47.27	0.0246
+1.1499	1	47.47	0.0246
+1.2266	1	47.65	0.0246
+1.5	1	48.08	0.0247
+2	1	49.35	0.0246
