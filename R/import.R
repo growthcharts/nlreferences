@@ -1,4 +1,4 @@
-#'@importFrom dplyr       %>% all_of first group_by mutate
+#'@importFrom dplyr       %>% all_of first group_by mutate pull
 #'                        rename_with row_number select ungroup
 #'@importFrom gamlss.dist pBCCG pBCPE pBCT qBCCG qBCPE qBCT
 #'@importFrom readr       cols col_double parse_character
