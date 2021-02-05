@@ -14,9 +14,9 @@
 read_ref <- function(file) {
 
   # find line of data block directive
-  lines <- parse_character(read_lines(file, n_max = 15L))
+  lines <- parse_character(read_lines(file, n_max = 25L))
   start_data <- which(tolower(lines) %in% "[data]")[1L]
-  if (is.na(start_data)) stop("Directive `[data]` not found in first 15 lines.")
+  if (is.na(start_data)) stop("Directive `[data]` not found in first 25 lines.")
 
   # read and parse meta data into a named character vector study
   df <- read_delim(file,
