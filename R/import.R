@@ -4,7 +4,7 @@
 #'@importFrom readr       cols col_double parse_character
 #'                        read_delim read_lines read_tsv
 #'@importFrom rlang       .data
-#'@importFrom stats       approx qnorm
+#'@importFrom stats       approx qnorm pnorm
 #'@importFrom tidyr       pivot_longer pivot_wider
 NULL
 
