@@ -66,7 +66,10 @@ transform_z <- function(data,
              yname = .data$name,
              sex = .data$sex,
              sub = .data$sub),
-           z = z(y = .data$value, x = .data$x, refcode = .data$refcode))
+           z = z(y = .data$value,
+                 x = .data$x,
+                 refcode = .data$refcode,
+                 pkg = "jamesreferences"))
 
   # fold back Z-scores into wide
   long %>%
