@@ -4,7 +4,11 @@
 \alias{transform_z}
 \title{Transforms measurement to Z-scores using Dutch references}
 \usage{
-transform_z(data, ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"))
+transform_z(
+  data,
+  ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{Data frame with appropriate variables, at least
@@ -16,6 +20,8 @@ births and prints a message.}
 \item{ynames}{Character vector containing the measurements to convert.
 Specify this to limit the number of conversions. If not specified, the
 functions tries all transformations}
+
+\item{verbose}{Set to \code{TRUE} to turn on warnings and messages}
 }
 \value{
 A data frame with either zero rows or the same number of rows

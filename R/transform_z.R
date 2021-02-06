@@ -17,6 +17,7 @@
 #' @param ynames Character vector containing the measurements to convert.
 #' Specify this to limit the number of conversions. If not specified, the
 #' functions tries all transformations
+#' @param verbose Set to `TRUE` to turn on warnings and messages
 #' @return
 #' A data frame with either zero rows or the same number of rows
 #' as `nrow(data)` with colums named `hgt_z`, `wgt_z`, and so on.
@@ -26,7 +27,8 @@
 #' transform_z(df, ynames = c("hdc", "wfh"))
 #' @export
 transform_z <- function(data,
-                        ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc")) {
+                        ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
+                        verbose = FALSE) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
   if ("wfh" %in% ynames) data$wfh <- data$wgt
@@ -69,7 +71,8 @@ transform_z <- function(data,
            z = z(y = .data$value,
                  x = .data$x,
                  refcode = .data$refcode,
-                 pkg = "jamesreferences"))
+                 pkg = "jamesreferences",
+                 verbose = verbose))
 
   # fold back Z-scores into wide
   long %>%
