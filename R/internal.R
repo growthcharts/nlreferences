@@ -11,3 +11,11 @@ validate_distribution <- function(names, dist) {
          ORD = any(substr(names, 1L, 3L) == "cat"),
          FALSE)
 }
+
+check_names <- function(df, needed) {
+  if (missing(df)) stop("Required argument 'df' not found")
+  if (missing(needed)) stop("Required argument 'needed' not found")
+
+  notfound <- is.na(match(needed, names(df)))
+  if (any(notfound)) stop("Not found: ", paste(needed[notfound], collapse = ", "))
+}

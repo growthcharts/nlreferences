@@ -10,7 +10,7 @@
 #'
 #' Functions \code{z()} and \code{y()} functions are the inverse of each other.
 #'
-#' @param y A numerical vector with measurements with length `length(y)`.
+#' @param y A numerical vector with measurements`.
 #' @param x A vector containing `length(y)` values of the numerical covariate (typically
 #' decimal age or height) at which conversion is desired.
 #' @param refcode A character vector with `length(y)` elements, each of which
@@ -52,7 +52,8 @@ z <- function(y, x, refcode, dec = 3L, tail_adjust = FALSE, ...) {
       tail_adjust = tail_adjust
     )) %>%
     ungroup() %>%
-    pull(z)
+    pull(z) %>%
+    round(digits = dec)
 }
 
 z_grp <- function(y, x, refcode, tail_adjust = FALSE) {
@@ -66,12 +67,10 @@ z_grp <- function(y, x, refcode, tail_adjust = FALSE) {
 
   # handle transforms, if any
   if ("ty" %in% names(study)) {
-    ty <- study[["ty"]]
-    y <- eval(parse(text = ty))
+    y <- eval(parse(text = study[["ty"]]))
   }
   if ("tx" %in% names(study)) {
-    tx <- study[["tx"]]
-    x <- eval(parse(text = tx))
+    x <- eval(parse(text = study[["tx"]]))
   }
 
   dist <- toupper(study[["distribution"]])
@@ -87,7 +86,7 @@ z_grp <- function(y, x, refcode, tail_adjust = FALSE) {
     M <- approx(x = r[["x"]], y = r[["M"]], xout = x)$y
     S <- approx(x = r[["x"]], y = r[["S"]], xout = x)$y
     z <- ifelse(L > 0.01 | L < (-0.01), (((y / M)^L) - 1) / (L * S), log(y / M) / S)
-    if (tail_adjust) z <- adjust_tail(y, z, L, M, S)
+    if (tail_adjust) z <- adjust_tail_z(y, z, L, M, S)
     return(z)
   }
   if (dist == "BCCG") {
@@ -117,15 +116,7 @@ z_grp <- function(y, x, refcode, tail_adjust = FALSE) {
   stop(paste("Reference type", dist, "not implemented."))
 }
 
-check_names <- function(df, needed) {
-  if (missing(df)) stop("Required argument 'df' not found")
-  if (missing(needed)) stop("Required argument 'needed' not found")
-
-  notfound <- is.na(match(needed, names(df)))
-  if (any(notfound)) stop("Not found: ", paste(needed[notfound], collapse = ", "))
-}
-
-adjust_tail <- function(y, z, L, M, S) {
+adjust_tail_z <- function(y, z, L, M, S) {
   idx <- !is.na(z) & z > 3
   if (any(idx)) {
     sd3 <- ifelse(L > 0.01 | L < (-0.01), M * (1 + L * S * 3)^(1 / L), M * exp(S * 3))

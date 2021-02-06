@@ -14,11 +14,14 @@
 #' The procedure aborts with an error if the length of any input is unequal to
 #' either `1` or `n`.
 #' @examples
-#' data <- data.frame(len = c(56, 42, 53),
+#' data <- data.frame(hgt = c(56, 42, 53),
 #'                    age = c(0.1, 0.2, 0.15),
 #'                    sex = c("male", "female", "female"),
 #'                    ga = c(40, 27, 39))
-#' make_refcode("nl", "1997", "hgt", data$sex, data$ga)
+#' r <- make_refcode("nl", c("1997", "2012", "1997"), "hgt", data$sex, c("nl", "27", "nl"))
+#' head(load_reference(r))
+#' head(load_reference(r[2]))
+#' head(load_reference(r[2], "study"))
 #' @export
 make_refcode <- function(name = "",
                          year = "",

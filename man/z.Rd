@@ -7,7 +7,7 @@
 z(y, x, refcode, dec = 3L, tail_adjust = FALSE, ...)
 }
 \arguments{
-\item{y}{A numerical vector with measurements with length \code{length(y)}.}
+\item{y}{A numerical vector with measurements`.}
 
 \item{x}{A vector containing \code{length(y)} values of the numerical covariate (typically
 decimal age or height) at which conversion is desired.}
