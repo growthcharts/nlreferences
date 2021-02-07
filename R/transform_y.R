@@ -67,7 +67,9 @@ transform_y <- function(data,
                                                   year = ifelse(.data$pt, "2012", "1997"),
                                                   yname = "hgt",
                                                   sex = .data$sex,
-                                                  sub = ifelse(.data$pt, .data$ga, "nl"))))) %>%
+                                                  sub = ifelse(.data$pt, .data$ga, "nl")),
+                           pkg = "jamesreferences",
+                           verbose = verbose))) %>%
     select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, .data$pt, all_of(yn)) %>%
     pivot_longer(cols = all_of(yn)) %>%
     mutate(x = ifelse(.data$name == "wfh_z", .data$xhgt, .data$age),
