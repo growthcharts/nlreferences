@@ -50,7 +50,7 @@ transform_z <- function(data,
   # calculate Z-scores for all ynames using long form
   long <- data %>%
     mutate(row = row_number(),
-           ga = ifelse(!is.na(.data$ga) & .data$ga <= 24 & .data$ga >= 21, 25, .data$ga),
+           ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
            pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4,
            xhgt = .data$hgt) %>%
     select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, .data$pt, all_of(yn)) %>%
