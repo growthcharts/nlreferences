@@ -83,7 +83,7 @@ transform_z <- function(data,
            z = z(y = .data$value,
                  x = .data$x,
                  refcode = .data$refcode,
-                 pkg = "jamesreferences",
+                 pkg = "jamesyzy",
                  verbose = verbose))
 
   # fold back Z-scores into wide

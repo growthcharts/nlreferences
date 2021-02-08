@@ -69,7 +69,7 @@ transform_y <- function(data,
                                                   yname = "hgt",
                                                   sex = .data$sex,
                                                   sub = ifelse(.data$pt, .data$ga, "nl")),
-                           pkg = "jamesreferences",
+                           pkg = "jamesyzy",
                            verbose = verbose))) %>%
     select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, .data$pt, all_of(yn)) %>%
     pivot_longer(cols = all_of(yn)) %>%
@@ -84,7 +84,7 @@ transform_y <- function(data,
            sub = "",
            sub = ifelse(.data$pt & .data$name %in% c("hgt_z", "wgt_z", "hdc_z", "dsc_z"),
                         .data$ga, .data$sub),
-           sub = ifelse(!is.na(.data$age) & .data$age > 1.5 & .data$name == "hdc",
+           sub = ifelse(!is.na(.data$age) & .data$age > 1.5 & .data$name == "hdc_z",
                         "nl", .data$sub),
            sub = ifelse(!.data$pt & .data$name %in% c("hgt_z", "wgt_z", "hdc_z"),
                         "nl", .data$sub),
@@ -101,7 +101,7 @@ transform_y <- function(data,
            y = y(z = .data$value,
                  x = .data$x,
                  refcode = .data$refcode,
-                 pkg = "jamesreferences",
+                 pkg = "jamesyzy",
                  verbose = verbose))
 
   # fold back Z-scores into wide, strip "_z" in names

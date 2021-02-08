@@ -1,16 +1,16 @@
-Package: jamesreferences
+Package: jamesyzy
 Type: Package
-Title: Growth References for JAMES
-Version: 0.3.0
+Title: Transforms between Measurements and Z-scores for JAMES
+Version: 0.4.0
 Author: Stef van Buuren
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
-Description: Collects the growth references for the JAMES system. The 
-    package imports REF formatted files.
+Description: Imports growth references for the JAMES system. Defines
+    tools that convert measurements into Z-scores, and vice versa.
 Encoding: UTF-8
 LazyData: true
 License: AGPL-3
 Copyright: Stef van Buuren 2021
-URL: https://github.com/growthcharts/jamesreferences
+URL: https://github.com/growthcharts/jamesyzy
 Depends: 
     R (>= 2.10)
 Imports:
