@@ -1,7 +1,7 @@
 Package: jamesyzy
 Type: Package
 Title: Transforms between Measurements and Z-scores for JAMES
-Version: 0.4.0
+Version: 0.5.0
 Author: Stef van Buuren
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: Imports growth references for the JAMES system. Defines
@@ -17,6 +17,7 @@ Imports:
     dplyr,
     rlang,
     tidyr,
+    utils,
     yzy
 Suggests:
     testthat (>= 3.0.0)
