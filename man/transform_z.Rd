@@ -2,44 +2,53 @@
 % Please edit documentation in R/transform_z.R
 \name{transform_z}
 \alias{transform_z}
-\title{Transforms measurement to Z-scores using Dutch references}
+\title{Transforms measurements to Z-scores using Dutch references}
 \usage{
 transform_z(
   data,
   ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
+  pkg = "jamesyzy",
   verbose = FALSE
 )
 }
 \arguments{
 \item{data}{Data frame with appropriate variables, at least
 \code{sex} and \code{age}. The names of the measurements can
-be one or more of: \code{hgt}, \code{wgt}, \code{hdc}, \code{wfh}, \code{bmi} and \code{dsc}.
-If the variable \code{ga} is entirely missing, the function assumes term
-births and prints a message.}
+be one or more of: \code{hgt}, \code{wgt}, \code{hdc}, \code{wfh}, \code{bmi} and \code{dsc}.}
 
 \item{ynames}{Character vector containing the measurements to convert.
 Specify this to limit the number of conversions. If not specified, the
-functions tries all transformations}
+function calculates Z-scores for all measurements.}
 
-\item{verbose}{Set to \code{TRUE} to turn on warnings and messages}
+\item{pkg}{Name of the package that stores the growth references. By
+default, \code{transform_z} searches the \code{jamesyzy} package.}
+
+\item{verbose}{Set to \code{TRUE} to turn on warnings and messages, which is
+useful for tracking down problem related to missing data or to the
+availability of references.}
 }
 \value{
 A data frame with either zero rows or the same number of rows
 as \code{nrow(data)} with colums named \code{hgt_z}, \code{wgt_z}, and so on.
 }
 \description{
-This function transforms growth data to Z-scores using two
-Dutch references: a term reference and a preterm-reference for
-children born \code{ga <= 36} aged 0 - 4 years.
-For head circumference, preterm references up to
-1.5 years are used, and term references thereafter.
+This function transforms growth data in the wide matrix
+to Z-scores using the selector method implemented in
+\code{\link[=set_refcodes]{set_refcodes()}}. It is the inverse of \code{\link[=transform_y]{transform_y()}}.
 }
 \details{
-By default, the functions scans for growth variables, and converts
-any variables it finds.
+By default, the function scans for variables named
+\code{hgt}, \code{wgt}, \code{hdc}, \code{wfh}, \code{bmi} and \code{dsc}, and returns
+Z-scores for any variables it finds.
 }
 \examples{
 df <- data.frame(hgt = 60, wgt = 5, hdc = 40, age = 0.3,
 sex = "male", ga = c(20, 30, 40, 50))
 transform_z(df, ynames = c("hdc", "wfh"))
+}
+\seealso{
+\code{\link[=set_refcodes]{set_refcodes()}}, \code{\link[yzy:z]{yzy::z()}}
+}
+\author{
+Stef van Buuren 2021
 }

@@ -6,49 +6,51 @@
 \usage{
 transform_y(
   data,
-  ynames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
+  znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
+  pkg = "jamesyzy",
   verbose = FALSE
 )
 }
 \arguments{
 \item{data}{Data frame with appropriate variables, at least
 \code{sex} and \code{age}. The names of the measurements can
-be one or more of: \code{hgt_z}, \code{wgt_z}, \code{hdc_z}, \code{wfh_z}, \code{bmi_z} and \code{dsc_z}.
-If the variable \code{ga} is entirely missing, the function assumes term
-births and prints a message.}
+be one or more of: \code{hgt_z}, \code{wgt_z}, \code{hdc_z}, \code{wfh_z}, \code{bmi_z} and \code{dsc_z}.}
 
-\item{ynames}{Character vector containing the measurements to convert.
-Specify this to limit the number of conversions. If not specified, the
-functions tries all transformations}
+\item{znames}{Character vector containing the names of the Z-scores
+to convert. Specify this to limit the number of conversions. If not specified, the
+function calculates measurements for all Z-scores.}
 
-\item{verbose}{Set to \code{TRUE} to turn on warnings and messages}
+\item{pkg}{Name of the package that stores the growth references. By
+default, \code{transform_z} searches the \code{jamesyzy} package.}
+
+\item{verbose}{Set to \code{TRUE} to turn on warnings and messages, which is
+useful for tracking down problem related to missing data or to the
+availability of references.}
 }
 \value{
 A data frame with either zero rows or the same number of rows
 as \code{nrow(data)} with colums named \code{hgt}, \code{wgt}, and so on.
 }
 \description{
-This function transforms Z-scores into measurements using two
-Dutch references: a term reference and a preterm-reference for
-children born \code{ga <= 36} aged 0 - 4 years.
-For head circumference, preterm references up to
-1.5 years are used, and term references thereafter.
+#' This function transforms Z-scores stored in the wide matrix
+to measurements using the selector method implemented in
+\code{\link[=set_refcodes]{set_refcodes()}}. It is the inverse of \code{\link[=transform_z]{transform_z()}}.
 }
 \details{
-By default, the functions scans for Z-scores, and converts
-any variables it finds.
+By default, the function scans for variables named
+\code{hgt_z}, \code{wgt_z}, \code{hdc_z}, \code{wfh_z}, \code{bmi_z} and \code{dsc_z}, and returns
+the measurement values for any variables it finds.
 
 The conversion of \code{wfh_z} to \code{wfh} is special. As \code{wfh} is conditional
 on \code{hgt}, the calculation requires either \code{hgt} or \code{hgt_z} to be present
 in the data. Availability of \code{hgt} takes precedence over \code{hgt_z}. If
 only \code{hgt_z} is known, then the function calculates \code{hgt} from \code{hgt_z}.
-
-The current function incorrectly assumes that the WFH-reference for children
-older than 16 years equals that of children younger than 16 years. This
-detail still needs to be fixed.
 }
 \examples{
 df <- data.frame(hgt_z = 0, wgt_z = 1, hdc_z = -1, age = 0.3,
 sex = "male", ga = c(20, 30, 40, 50))
-transform_y(df, ynames = c("hdc_z", "wfh_z"))
+transform_y(df, znames = c("hdc_z", "wfh_z"))
+}
+\author{
+Stef van Buuren 2021
 }

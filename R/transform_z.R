@@ -1,26 +1,29 @@
-#' Transforms measurement to Z-scores using Dutch references
+#' Transforms measurements to Z-scores using Dutch references
 #'
-#' This function transforms growth data to Z-scores using two
-#' Dutch references: a term reference and a preterm-reference for
-#' children born `ga <= 36` aged 0 - 4 years.
-#' For head circumference, preterm references up to
-#' 1.5 years are used, and term references thereafter.
+#' This function transforms growth data in the wide matrix
+#' to Z-scores using the selector method implemented in
+#' [set_refcodes()]. It is the inverse of [transform_y()].
 #'
-#' By default, the functions scans for growth variables, and converts
-#' any variables it finds.
+#' By default, the function scans for variables named
+#' `hgt`, `wgt`, `hdc`, `wfh`, `bmi` and `dsc`, and returns
+#' Z-scores for any variables it finds.
 #'
 #' @param data Data frame with appropriate variables, at least
 #' `sex` and `age`. The names of the measurements can
 #' be one or more of: `hgt`, `wgt`, `hdc`, `wfh`, `bmi` and `dsc`.
-#' If the variable `ga` is entirely missing, the function assumes term
-#' births and prints a message.
 #' @param ynames Character vector containing the measurements to convert.
 #' Specify this to limit the number of conversions. If not specified, the
-#' functions tries all transformations
-#' @param verbose Set to `TRUE` to turn on warnings and messages
+#' function calculates Z-scores for all measurements.
+#' @param pkg Name of the package that stores the growth references. By
+#' default, `transform_z` searches the `jamesyzy` package.
+#' @param verbose Set to `TRUE` to turn on warnings and messages, which is
+#' useful for tracking down problem related to missing data or to the
+#' availability of references.
 #' @return
 #' A data frame with either zero rows or the same number of rows
 #' as `nrow(data)` with colums named `hgt_z`, `wgt_z`, and so on.
+#' @author Stef van Buuren 2021
+#' @seealso [set_refcodes()], [yzy::z()]
 #' @examples
 #' df <- data.frame(hgt = 60, wgt = 5, hdc = 40, age = 0.3,
 #' sex = "male", ga = c(20, 30, 40, 50))
@@ -28,6 +31,7 @@
 #' @export
 transform_z <- function(data,
                         ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
+                        pkg = "jamesyzy",
                         verbose = FALSE) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
@@ -50,47 +54,22 @@ transform_z <- function(data,
   # calculate Z-scores for all ynames using long form
   long <- data %>%
     mutate(row = row_number(),
-           ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
-           pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4,
            xhgt = .data$hgt) %>%
-    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, .data$pt, all_of(yn)) %>%
-    pivot_longer(cols = all_of(yn)) %>%
-    mutate(x = ifelse(.data$name == "wfh", .data$xhgt, .data$age),
-           year = ifelse(.data$pt, "2012", ""),
-           year = ifelse(!.data$pt & .data$name %in% c("hgt", "wgt", "hdc", "wfh", "bmi"),
-                         "1997", .data$year),
-           year = ifelse(!is.na(.data$age) & .data$age > 1.5 & .data$name == "hdc",
-                         "1997", .data$year),
-           year = ifelse(.data$pt & .data$name == "bmi", "1997", .data$year),
-           year = ifelse(.data$name == "dsc", "2014", .data$year),
-           sub = "",
-           sub = ifelse(.data$pt & .data$name %in% c("hgt", "wgt", "hdc", "dsc"),
-                        .data$ga, .data$sub),
-           sub = ifelse(!is.na(.data$age) & .data$age > 1.5 & .data$name == "hdc",
-                        "nl", .data$sub),
-           sub = ifelse(!.data$pt & .data$name %in% c("hgt", "wgt", "hdc"),
-                        "nl", .data$sub),
-           sub = ifelse(.data$name == "bmi",
-                        "nl", .data$sub),
-           sub = ifelse(!.data$pt & .data$name == "dsc", "40", .data$sub),
-           sub = ifelse(!.data$pt & .data$name == "wfh", "nla", .data$sub),
-           refcode = make_refcode(
-             name = "nl",
-             year = .data$year,
-             yname = .data$name,
-             sex = .data$sex,
-             sub = .data$sub),
-           z = z(y = .data$value,
+    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(yn)) %>%
+    pivot_longer(cols = all_of(yn), names_to = "yname", values_to = "y") %>%
+    mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
+           xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
+    mutate(refcode = set_refcodes(data = .),
+           z = z(y = .data$y,
                  x = .data$x,
                  refcode = .data$refcode,
-                 pkg = "jamesyzy",
+                 pkg = pkg,
                  verbose = verbose))
 
   # fold back Z-scores into wide
   long %>%
-    select(.data$row, .data$name, .data$z) %>%
-    pivot_wider(id_cols = .data$row, names_from = .data$name, values_from = .data$z) %>%
+    select(.data$row, .data$yname, .data$z) %>%
+    pivot_wider(id_cols = .data$row, names_from = .data$yname, values_from = .data$z) %>%
     select(-.data$row) %>%
     rename_with(paste0, names(.), "_z")
 }
-
