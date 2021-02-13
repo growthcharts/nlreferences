@@ -56,7 +56,7 @@ set_refcodes <- function(data) {
     stop("Argument `data` should be a data frame.")
   req <- c("xname", "yname", "x", "sex")
   if (!all(hasName(data, req))) {
-    stop("Not found: ", paste(req[!hasName(data, req), collapse = ", "], "."))
+    stop("Not found: ", paste(req[!hasName(data, req)], collapse = ", ", "."))
   }
   if (!hasName(data, "age")) {
     data$age <- ifelse(data$xname == "age", data$x, NA_real_)
