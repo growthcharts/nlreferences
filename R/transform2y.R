@@ -2,7 +2,7 @@
 #'
 #' #' This function transforms Z-scores stored in the wide matrix
 #' to measurements using the selector method implemented in
-#' [set_refcodes()]. It is the inverse of [transform_z()].
+#' [set_refcodes()]. It is the inverse of [transform2z()].
 #'
 #' By default, the function scans for variables named
 #' `hgt_z`, `wgt_z`, `hdc_z`, `wfh_z`, `bmi_z` and `dsc_z`, and returns
@@ -13,7 +13,7 @@
 #' in the data. Availability of `hgt` takes precedence over `hgt_z`. If
 #' only `hgt_z` is known, then the function calculates `hgt` from `hgt_z`.
 #'
-#' @inheritParams transform_z
+#' @inheritParams transform2z
 #' @param data Data frame with appropriate variables, at least
 #' `sex` and `age`. The names of the measurements can
 #' be one or more of: `hgt_z`, `wgt_z`, `hdc_z`, `wfh_z`, `bmi_z` and `dsc_z`.
@@ -27,9 +27,9 @@
 #' @examples
 #' df <- data.frame(hgt_z = 0, wgt_z = 1, hdc_z = -1, age = 0.3,
 #' sex = "male", ga = c(20, 30, 40, 50))
-#' transform_y(df, znames = c("hdc_z", "wfh_z"))
+#' transform2y(df, znames = c("hdc_z", "wfh_z"))
 #' @export
-transform_y <- function(data,
+transform2y <- function(data,
                         znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
                         pkg = "jamesyzy",
                         verbose = FALSE) {

@@ -2,7 +2,7 @@
 #'
 #' This function transforms growth data in the wide matrix
 #' to Z-scores using the selector method implemented in
-#' [set_refcodes()]. It is the inverse of [transform_y()].
+#' [set_refcodes()]. It is the inverse of [transform2y()].
 #'
 #' By default, the function scans for variables named
 #' `hgt`, `wgt`, `hdc`, `wfh`, `bmi` and `dsc`, and returns
@@ -15,7 +15,7 @@
 #' Specify this to limit the number of conversions. If not specified, the
 #' function calculates Z-scores for all measurements.
 #' @param pkg Name of the package that stores the growth references. By
-#' default, `transform_z` searches the `jamesyzy` package.
+#' default, `transform2z` searches the `jamesyzy` package.
 #' @param verbose Set to `TRUE` to turn on warnings and messages, which is
 #' useful for tracking down problem related to missing data or to the
 #' availability of references.
@@ -27,9 +27,9 @@
 #' @examples
 #' df <- data.frame(hgt = 60, wgt = 5, hdc = 40, age = 0.3,
 #' sex = "male", ga = c(20, 30, 40, 50))
-#' transform_z(df, ynames = c("hdc", "wfh"))
+#' transform2z(df, ynames = c("hdc", "wfh"))
 #' @export
-transform_z <- function(data,
+transform2z <- function(data,
                         ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
                         pkg = "jamesyzy",
                         verbose = FALSE) {
