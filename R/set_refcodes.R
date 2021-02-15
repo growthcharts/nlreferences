@@ -71,7 +71,7 @@ set_refcodes <- function(data) {
     mutate(
       ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
       pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) &
-        ((.data$age < 4 & .data$yname != "hdc") | (.data$age < 1.5 & .data$yname == "hdc")),
+        ((.data$age <= 4 & .data$yname != "hdc") | (.data$age <= 1.5 & .data$yname == "hdc")),
       year = ifelse(.data$pt, "2012", "1997"),
       year = ifelse(.data$yname == "dsc", "2014", .data$year),
       year = ifelse(.data$pt & .data$yname == "bmi", "1997", .data$year),
