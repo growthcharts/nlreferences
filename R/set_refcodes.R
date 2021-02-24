@@ -37,7 +37,7 @@
 #' @return
 #' A character vector of `nrow(data)` elements.
 #' @author Stef van Buuren 2021
-#' @seealso [yzy::make_refcode()], [yzy::load_reference()]
+#' @seealso [centile::make_refcode()], [centile::load_reference()]
 #' @references [D-score adjustment for pre-terms](https://d-score.org/dbook1/sec-pops.html#conclusions)
 #' @examples
 #' df <- data.frame(
@@ -49,7 +49,7 @@
 #' refcodes <- set_refcodes(df)
 #'
 #' # show the preterm 27 weeks hgt reference
-#' yzy::load_reference(refcodes[2], pkg = "jamesyzy")
+#' centile::load_reference(refcodes[2], pkg = "jamesyzy")
 #' @export
 set_refcodes <- function(data) {
   if (!is.data.frame(data))

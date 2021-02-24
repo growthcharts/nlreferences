@@ -47,7 +47,7 @@ sex = "male", ga = c(20, 30, 40, 50))
 transform2z(df, ynames = c("hdc", "wfh"))
 }
 \seealso{
-\code{\link[=set_refcodes]{set_refcodes()}}, \code{\link[yzy:z]{yzy::z()}}
+\code{\link[=set_refcodes]{set_refcodes()}}, \code{\link[centile:y2z]{centile::y2z()}}
 }
 \author{
 Stef van Buuren 2021

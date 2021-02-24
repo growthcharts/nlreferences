@@ -1,3 +1,7 @@
+# jamesyzy 0.7.0
+
+* Replace `yzy` by `centile` package
+
 # jamesyzy 0.6.0
 
 * Rename as `transform2y()` and `transform2z()` to prevent name clashes with `clopus`

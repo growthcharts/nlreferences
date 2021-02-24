@@ -56,13 +56,13 @@ df <- data.frame(
 refcodes <- set_refcodes(df)
 
 # show the preterm 27 weeks hgt reference
-yzy::load_reference(refcodes[2], pkg = "jamesyzy")
+centile::load_reference(refcodes[2], pkg = "jamesyzy")
 }
 \references{
 \href{https://d-score.org/dbook1/sec-pops.html#conclusions}{D-score adjustment for pre-terms}
 }
 \seealso{
-\code{\link[yzy:make_refcode]{yzy::make_refcode()}}, \code{\link[yzy:load_reference]{yzy::load_reference()}}
+\code{\link[centile:make_refcode]{centile::make_refcode()}}, \code{\link[centile:load_reference]{centile::load_reference()}}
 }
 \author{
 Stef van Buuren 2021

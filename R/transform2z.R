@@ -23,7 +23,7 @@
 #' A data frame with either zero rows or the same number of rows
 #' as `nrow(data)` with colums named `hgt_z`, `wgt_z`, and so on.
 #' @author Stef van Buuren 2021
-#' @seealso [set_refcodes()], [yzy::z()]
+#' @seealso [set_refcodes()], [centile::y2z()]
 #' @examples
 #' df <- data.frame(hgt = 60, wgt = 5, hdc = 40, age = 0.3,
 #' sex = "male", ga = c(20, 30, 40, 50))
@@ -60,11 +60,11 @@ transform2z <- function(data,
     mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
     mutate(refcode = set_refcodes(data = .),
-           z = z(y = .data$y,
-                 x = .data$x,
-                 refcode = .data$refcode,
-                 pkg = pkg,
-                 verbose = verbose))
+           z = y2z(y = .data$y,
+                   x = .data$x,
+                   refcode = .data$refcode,
+                   pkg = pkg,
+                   verbose = verbose))
 
   # fold back Z-scores into wide
   long %>%

@@ -57,15 +57,15 @@ transform2y <- function(data,
            pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4,
            xhgt = ifelse(rep("hgt" %in% vars, nrow(data)),
                          .data$hgt,
-                         y(z = .data$hgt_z,
-                           x = .data$age,
-                           refcode = make_refcode(name = "nl",
-                                                  year = ifelse(.data$pt, "2012", "1997"),
-                                                  yname = "hgt",
-                                                  sex = .data$sex,
-                                                  sub = ifelse(.data$pt, .data$ga, "nl")),
-                           pkg = pkg,
-                           verbose = verbose))) %>%
+                         z2y(z = .data$hgt_z,
+                             x = .data$age,
+                             refcode = make_refcode(name = "nl",
+                                                    year = ifelse(.data$pt, "2012", "1997"),
+                                                    yname = "hgt",
+                                                    sex = .data$sex,
+                                                    sub = ifelse(.data$pt, .data$ga, "nl")),
+                             pkg = pkg,
+                             verbose = verbose))) %>%
     select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(zn)) %>%
     pivot_longer(cols = all_of(zn), names_to = "zname", values_to = "z")
   long <- long %>%
@@ -73,11 +73,11 @@ transform2y <- function(data,
            x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
     mutate(refcode = set_refcodes(data = .),
-           y = y(z = .data$z,
-                 x = .data$x,
-                 refcode = .data$refcode,
-                 pkg = pkg,
-                 verbose = verbose))
+           y = z2y(z = .data$z,
+                   x = .data$x,
+                   refcode = .data$refcode,
+                   pkg = pkg,
+                   verbose = verbose))
 
   # fold back data into wide
   long %>%

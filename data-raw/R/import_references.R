@@ -5,9 +5,9 @@ libs <- c("nl1997", "preterm", "dscore")
 for (lib in libs) {
   files <- list.files(file.path(path, lib))
   for (file in files) {
-    ref <- yzy::read_ref(file.path(path, lib, file))
+    ref <- centile::import_rif(file.path(path, lib, file))
     s <- attr(ref, "study")
-    refcode <- yzy::make_refcode(s["name"], s["year"], s["yname"], s["sex"], s["sub"])
+    refcode <- centile::make_refcode(s["name"], s["year"], s["yname"], s["sex"], s["sub"])
     assign(refcode, ref)
   }
 }
