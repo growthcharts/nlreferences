@@ -1,0 +1,34 @@
+name = nl
+year = 1980
+yname = wfh
+sex = male
+sub = nlb
+distribution = LMS
+ty = log10(y)
+yt = 10**y
+citation = Roede1985
+publication = Roede MJ & van Wieringen JC (1985) Growth diagrams 1980: Netherlands third nation-wide survey. Tijdschrift voor Sociale Gezondheidszorg, 63, 1-34.
+remark = wfh, unpublished, processed by TNO, taken from nl3.wfh.txt 15jul2010
+[data]
+x	L	M	S
+158	-4.1571	1.6725	0.0321
+160	-4.043	1.6887	0.0311
+162	-3.921	1.7046	0.0303
+164	-3.796	1.7201	0.0294
+166	-3.6905	1.7353	0.0286
+168	-3.6222	1.7499	0.028
+170	-3.5989	1.764	0.0273
+172	-3.624	1.7774	0.0267
+174	-3.6844	1.79	0.0261
+176	-3.7383	1.8016	0.0256
+178	-3.757	1.8123	0.0252
+180	-3.7308	1.8224	0.0248
+182	-3.6513	1.8319	0.0245
+184	-3.5003	1.8408	0.0243
+186	-3.2787	1.8492	0.024
+188	-2.9977	1.8572	0.0238
+190	-2.6812	1.865	0.0235
+192	-2.3491	1.8728	0.0232
+194	-2.0142	1.8805	0.0229
+196	-1.6861	1.8883	0.0227
+198	-1.3631	1.896	0.0226

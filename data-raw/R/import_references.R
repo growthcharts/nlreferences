@@ -1,20 +1,29 @@
 # import selected references
 path <- file.path("data-raw/data")
-libs <- c("nl1997", "preterm", "dscore")
+libs <- c("nl1980", "nl1997", "nl2009", "preterm", "dscore")
 
+refcodes <- character(0)
 for (lib in libs) {
   files <- list.files(file.path(path, lib))
   for (file in files) {
     ref <- centile::import_rif(file.path(path, lib, file))
     s <- attr(ref, "study")
     refcode <- centile::make_refcode(s["name"], s["year"], s["yname"], s["sex"], s["sub"])
+    refcodes <- c(refcodes, refcode)
     assign(refcode, ref)
   }
 }
 
 usethis::use_data(
-  gc_2019_dsc_female_,
-  gc_2019_dsc_male_,
+  refcodes,
+  nl_1980_bmi_female_,
+  nl_1980_bmi_male_,
+  nl_1980_wfh_female_nla,
+  nl_1980_wfh_female_nlb,
+  nl_1980_wfh_male_nla,
+  nl_1980_wfh_male_nlb,
+  nl_1980_wgt_female_,
+  nl_1980_wgt_male_,
   nl_1997_bmi_female_ma,
   nl_1997_bmi_female_nl,
   nl_1997_bmi_female_tu,
@@ -63,6 +72,26 @@ usethis::use_data(
   nl_1997_whr_male_,
   nl_1997_wst_female_,
   nl_1997_wst_male_,
+  nl_2009_bmi_female_ma,
+  nl_2009_bmi_female_nl,
+  nl_2009_bmi_female_tu,
+  nl_2009_bmi_male_ma,
+  nl_2009_bmi_male_nl,
+  nl_2009_bmi_male_tu,
+  nl_2009_hdc_female_ds,
+  nl_2009_hdc_male_ds,
+  nl_2009_hgt_female_ds,
+  nl_2009_hgt_female_ma,
+  nl_2009_hgt_female_nl,
+  nl_2009_hgt_female_tu,
+  nl_2009_hgt_male_ds,
+  nl_2009_hgt_male_ma,
+  nl_2009_hgt_male_nl,
+  nl_2009_hgt_male_tu,
+  nl_2009_wgt_female_ds,
+  nl_2009_wgt_female_nl,
+  nl_2009_wgt_male_ds,
+  nl_2009_wgt_male_nl,
   nl_2012_hdc_female_25,
   nl_2012_hdc_female_26,
   nl_2012_hdc_female_27,
@@ -163,5 +192,7 @@ usethis::use_data(
   nl_2014_dsc_male_35,
   nl_2014_dsc_male_36,
   nl_2014_dsc_male_40,
+  gc_2019_dsc_female_,
+  gc_2019_dsc_male_,
   internal = TRUE, overwrite = TRUE
 )
