@@ -1,3 +1,7 @@
+# jamesyzy 0.9.0
+
+* Adds references for Hindostane subpopulation
+
 # jamesyzy 0.8.0
 
 * Adds Dutch 1980 and 2009 references
