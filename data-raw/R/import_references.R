@@ -1,6 +1,6 @@
 # import selected references
 path <- file.path("data-raw/data")
-libs <- c("nl1980", "nl1997", "nl2009", "preterm", "dscore")
+libs <- c("nl1980", "nl1997", "nl2009", "nlhs", "preterm", "dscore")
 
 refcodes <- character(0)
 for (lib in libs) {
@@ -92,6 +92,14 @@ usethis::use_data(
   nl_2009_wgt_female_nl,
   nl_2009_wgt_male_ds,
   nl_2009_wgt_male_nl,
+  nl_1976_bmi_female_hs,
+  nl_1976_bmi_male_hs,
+  nl_1976_wfh_female_hs,
+  nl_1976_wfh_male_hs,
+  nl_1976_wgt_female_hs,
+  nl_1976_wgt_male_hs,
+  nl_2010_hgt_female_hs,
+  nl_2010_hgt_male_hs,
   nl_2012_hdc_female_25,
   nl_2012_hdc_female_26,
   nl_2012_hdc_female_27,
