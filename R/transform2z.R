@@ -15,7 +15,7 @@
 #' Specify this to limit the number of conversions. If not specified, the
 #' function calculates Z-scores for all measurements.
 #' @param pkg Name of the package that stores the growth references. By
-#' default, `transform2z` searches the `jamesyzy` package.
+#' default, `transform2z` searches the `nlreferences` package.
 #' @param verbose Set to `TRUE` to turn on warnings and messages, which is
 #' useful for tracking down problem related to missing data or to the
 #' availability of references.
@@ -31,7 +31,7 @@
 #' @export
 transform2z <- function(data,
                         ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
-                        pkg = "jamesyzy",
+                        pkg = "nlreferences",
                         verbose = FALSE) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")

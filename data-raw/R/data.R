@@ -1,10 +1,6 @@
 #' References for child growth and development for JAMES
 #'
-#' A dataset containing the prices and other attributes of almost 54,000
-#' diamonds.
-#'
 #' @format A tibble with an attribute called \code{"study"}
-#' @source clopus package
 "gc_2019_dsc_female_NA"
 "gc_2019_dsc_male_NA"
 "nl_1997_bmi_female_ma"

@@ -7,7 +7,7 @@
 transform2y(
   data,
   znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
-  pkg = "jamesyzy",
+  pkg = "nlreferences",
   verbose = FALSE
 )
 }
@@ -21,7 +21,7 @@ to convert. Specify this to limit the number of conversions. If not specified, t
 function calculates measurements for all Z-scores.}
 
 \item{pkg}{Name of the package that stores the growth references. By
-default, \code{transform2z} searches the \code{jamesyzy} package.}
+default, \code{transform2z} searches the \code{nlreferences} package.}
 
 \item{verbose}{Set to \code{TRUE} to turn on warnings and messages, which is
 useful for tracking down problem related to missing data or to the

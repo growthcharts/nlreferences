@@ -31,7 +31,7 @@
 #' @export
 transform2y <- function(data,
                         znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
-                        pkg = "jamesyzy",
+                        pkg = "nlreferences",
                         verbose = FALSE) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")

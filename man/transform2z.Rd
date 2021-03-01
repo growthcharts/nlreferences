@@ -7,7 +7,7 @@
 transform2z(
   data,
   ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
-  pkg = "jamesyzy",
+  pkg = "nlreferences",
   verbose = FALSE
 )
 }
@@ -21,7 +21,7 @@ Specify this to limit the number of conversions. If not specified, the
 function calculates Z-scores for all measurements.}
 
 \item{pkg}{Name of the package that stores the growth references. By
-default, \code{transform2z} searches the \code{jamesyzy} package.}
+default, \code{transform2z} searches the \code{nlreferences} package.}
 
 \item{verbose}{Set to \code{TRUE} to turn on warnings and messages, which is
 useful for tracking down problem related to missing data or to the

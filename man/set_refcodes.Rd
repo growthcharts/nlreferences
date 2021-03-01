@@ -56,7 +56,7 @@ df <- data.frame(
 refcodes <- set_refcodes(df)
 
 # show the preterm 27 weeks hgt reference
-centile::load_reference(refcodes[2], pkg = "jamesyzy")
+centile::load_reference(refcodes[2], pkg = "nlreferences")
 }
 \references{
 \href{https://d-score.org/dbook1/sec-pops.html#conclusions}{D-score adjustment for pre-terms}

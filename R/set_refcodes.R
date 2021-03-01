@@ -49,7 +49,7 @@
 #' refcodes <- set_refcodes(df)
 #'
 #' # show the preterm 27 weeks hgt reference
-#' centile::load_reference(refcodes[2], pkg = "jamesyzy")
+#' centile::load_reference(refcodes[2], pkg = "nlreferences")
 #' @export
 set_refcodes <- function(data) {
   if (!is.data.frame(data))

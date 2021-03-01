@@ -1,4 +1,4 @@
 library(testthat)
-library(jamesyzy)
+library(nlreferences)
 
-test_check("jamesyzy")
+test_check("nlreferences")

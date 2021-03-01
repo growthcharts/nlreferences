@@ -16,6 +16,12 @@ for (lib in libs) {
 
 usethis::use_data(
   refcodes,
+  nl_1976_bmi_female_hs,
+  nl_1976_bmi_male_hs,
+  nl_1976_wfh_female_hs,
+  nl_1976_wfh_male_hs,
+  nl_1976_wgt_female_hs,
+  nl_1976_wgt_male_hs,
   nl_1980_bmi_female_,
   nl_1980_bmi_male_,
   nl_1980_wfh_female_nla,
@@ -92,12 +98,6 @@ usethis::use_data(
   nl_2009_wgt_female_nl,
   nl_2009_wgt_male_ds,
   nl_2009_wgt_male_nl,
-  nl_1976_bmi_female_hs,
-  nl_1976_bmi_male_hs,
-  nl_1976_wfh_female_hs,
-  nl_1976_wfh_male_hs,
-  nl_1976_wgt_female_hs,
-  nl_1976_wgt_male_hs,
   nl_2010_hgt_female_hs,
   nl_2010_hgt_male_hs,
   nl_2012_hdc_female_25,
@@ -200,7 +200,5 @@ usethis::use_data(
   nl_2014_dsc_male_35,
   nl_2014_dsc_male_36,
   nl_2014_dsc_male_40,
-  gc_2019_dsc_female_,
-  gc_2019_dsc_male_,
   internal = TRUE, overwrite = TRUE
 )
