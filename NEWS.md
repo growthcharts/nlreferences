@@ -1,3 +1,7 @@
+# nlreferences 0.11.0
+
+* Improves error checking in `transform2y()` and `transform2z()` for WFH
+
 # nlreferences 0.10.0
 
 * New package name `nlreferences`
