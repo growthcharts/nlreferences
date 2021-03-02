@@ -36,9 +36,12 @@ transform2y <- function(data,
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
   vars <- colnames(data)
-  if (!"age" %in% vars && any(c("hgt_z", "wgt_z", "hdc_z", "bmi_z", "dsc_z") %in% znames))
+  todo <- intersect(vars, znames)
+  if (!length(todo))
+    stop("Expected one of `hgt_z`, `wgt_z`, `hdc_z`, `wfh_z`, `bmi_z`, `dsc_z`.")
+  if (!"age" %in% vars && any(c("hgt_z", "wgt_z", "hdc_z", "bmi_z", "dsc_z") %in% todo))
     stop("Required variable `age` not found.")
-  if ("wfh_z" %in% znames && !any(c("hgt", "hgt_z") %in% vars))
+  if ("wfh_z" %in% todo && !any(c("hgt", "hgt_z") %in% vars))
     stop("Required variable `hgt` or `hgt_z` not found.")
   if (!"sex" %in% vars)
     stop("Required variable `sex` not found.")
@@ -47,28 +50,27 @@ transform2y <- function(data,
     data$ga <- 40
   }
 
-  # active ynames
-  zn <- znames[znames %in% vars]
-
   # calculate measurement from Z-scores using long form
   long <- data %>%
     mutate(row = row_number(),
            ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
-           pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4,
-           xhgt = ifelse(rep("hgt" %in% vars, nrow(data)),
-                         .data$hgt,
-                         z2y(z = .data$hgt_z,
-                             x = .data$age,
-                             refcode = make_refcode(name = "nl",
-                                                    year = ifelse(.data$pt, "2012", "1997"),
-                                                    yname = "hgt",
-                                                    sex = .data$sex,
-                                                    sub = ifelse(.data$pt, .data$ga, "nl")),
-                             pkg = pkg,
-                             verbose = verbose))) %>%
-    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(zn)) %>%
-    pivot_longer(cols = all_of(zn), names_to = "zname", values_to = "z")
+           pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4)
+
+  # replacement for xheight
+  long$xhgt <- rep(NA_real_, nrow(long))
+  if ("hgt" %in% vars) long$xhgt <- long$hgt
+  else if ("hgt_z" %in% vars) long$xhgt <- z2y(z = long$hgt_z,
+                                               x = long$age,
+                                               refcode = make_refcode(name = "nl",
+                                                                      year = ifelse(long$pt, "2012", "1997"),
+                                                                      yname = "hgt",
+                                                                      sex = long$sex,
+                                                                      sub = ifelse(long$pt, long$ga, "nl")),
+                                               pkg = pkg,
+                                               verbose = verbose)
   long <- long %>%
+    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(todo)) %>%
+    pivot_longer(cols = all_of(todo), names_to = "zname", values_to = "z") %>%
     mutate(yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
            x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%

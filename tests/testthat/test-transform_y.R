@@ -19,3 +19,11 @@ test_that("Uses hgt column to detemine WFH inverse transformation z-->y", {
   wfh = c(5, 5, 5, 5)), row.names = c(NA, -4L), class = c("tbl_df", "tbl", "data.frame")))
 })
 
+df3 <- df1[, -c(1, 3, 4)]
+test_that("Data without hgt or hgt_z", {
+  expect_equal(transform2y(df3), structure(list(wgt = c(NA, 5, 5, 5)),
+                                           row.names = c(NA, -4L), class = c("tbl_df", "tbl", "data.frame")))})
+
+df4 <- df1[, -c(1:3)]
+test_that("Data without hgt or hgt_z, but with wfh_z", {
+  expect_error(transform2y(df4), "Required variable `hgt` or `hgt_z` not found.")})

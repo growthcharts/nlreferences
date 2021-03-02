@@ -35,12 +35,17 @@ transform2z <- function(data,
                         verbose = FALSE) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
-  if ("wfh" %in% ynames) data$wfh <- data$wgt
   vars <- colnames(data)
-  if (!"age" %in% vars && any(c("hgt", "wgt", "hdc", "bmi", "dsc") %in% ynames))
+  todo <- intersect(c(vars, "wfh"), ynames)
+  if (!length(todo))
+    stop("Expected one of `hgt`, `wgt`, `hdc`, `wfh`, `bmi`, `dsc`.")
+  if (!"age" %in% vars && any(c("hgt", "wgt", "hdc", "bmi", "dsc") %in% todo))
     stop("Required variable `age` not found.")
-  if (!"hgt" %in% vars && "wfh" %in% ynames)
+  if (!"hgt" %in% vars && "wfh" %in% todo)
     stop("Required variable `hgt` not found.")
+  if (!"wgt" %in% vars && "wfh" %in% todo)
+    stop("Required variable `wgt` not found.")
+  if ("wfh" %in% todo) data$wfh <- data$wgt
   if (!"sex" %in% vars)
     stop("Required variable `sex` not found.")
   if (!"ga" %in% vars) {
@@ -48,15 +53,16 @@ transform2z <- function(data,
     data$ga <- 40
   }
 
-  # active ynames
-  yn <- ynames[ynames %in% vars]
+  # replacement for xheight
+  xhgt <- rep(NA_real_, nrow(data))
+  if ("hgt" %in% vars) xhgt <- data$hgt
 
   # calculate Z-scores for all ynames using long form
   long <- data %>%
     mutate(row = row_number(),
-           xhgt = .data$hgt) %>%
-    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(yn)) %>%
-    pivot_longer(cols = all_of(yn), names_to = "yname", values_to = "y") %>%
+           xhgt = !! xhgt) %>%
+    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(todo)) %>%
+    pivot_longer(cols = all_of(todo), names_to = "yname", values_to = "y") %>%
     mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
     mutate(refcode = set_refcodes(data = .),
