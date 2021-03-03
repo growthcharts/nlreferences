@@ -54,6 +54,8 @@
 set_refcodes <- function(data) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
+  if (!nrow(data))
+    return(character(0))
   req <- c("xname", "yname", "x", "sex")
   if (!all(hasName(data, req))) {
     stop("Not found: ", paste(req[!hasName(data, req)], collapse = ", ", "."))
