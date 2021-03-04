@@ -1,3 +1,7 @@
+# nlreferences 0.11.1
+
+* Correct bug in `set_refcodes()` that occurred when `age = NA`
+
 # nlreferences 0.11.0
 
 * Improves error checking in `transform2y()` and `transform2z()` for WFH
