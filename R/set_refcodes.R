@@ -60,6 +60,10 @@ set_refcodes <- function(data) {
   if (!all(hasName(data, req))) {
     stop("Not found: ", paste(req[!hasName(data, req)], collapse = ", ", "."))
   }
+  if (hasName(data, "age")) {
+    if (all(is.na(data$age)))
+      data$age <- ifelse(data$xname == "age", data$x, NA_real_)
+  }
   if (!hasName(data, "age")) {
     data$age <- ifelse(data$xname == "age", data$x, NA_real_)
   }
