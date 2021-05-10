@@ -1,5 +1,9 @@
-# nlreferences 0.11.1
+# nlreferences 0.12.0
 
+* Switches on continuous integration
+* Adds Github action `pkgdown`
+* Adds Github action `R-CMD-check`
+* Adds github-pages branch
 * Correct bug in `set_refcodes()` that occurred when `age = NA`
 
 # nlreferences 0.11.0
