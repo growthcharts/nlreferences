@@ -74,7 +74,7 @@ set_refcodes(). It is the inverse of transform2z()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nlreferences</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.12.1</span>
       </span>
     </div>
 
@@ -180,13 +180,13 @@ only <code>hgt_z</code> is known, then the function calculates <code>hgt</code> 
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>hgt_z <span class='op'>=</span> <span class='fl'>0</span>, wgt_z <span class='op'>=</span> <span class='fl'>1</span>, hdc_z <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>, age <span class='op'>=</span> <span class='fl'>0.3</span>,
 sex <span class='op'>=</span> <span class='st'>"male"</span>, ga <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>transform2y</span><span class='op'>(</span><span class='va'>df</span>, znames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hdc_z"</span>, <span class='st'>"wfh_z"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 1</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 1</span>
 #&gt;     hdc
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span>  </span><span style='color: #BB0000;'>NA</span><span>  
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span>  37.3
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span>  40.4
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span>  40.4</div></span></pre>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span>  <span style='color: #BB0000;'>NA</span>  
+#&gt; <span style='color: #BCBCBC;'>2</span>  37.3
+#&gt; <span style='color: #BCBCBC;'>3</span>  40.4
+#&gt; <span style='color: #BCBCBC;'>4</span>  40.4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
