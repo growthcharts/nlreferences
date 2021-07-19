@@ -1,13 +1,12 @@
 Package: nlreferences
 Type: Package
-Title: Growth References for Children living in The Netherlands
+Title: Growth References for Children Living in The Netherlands
 Version: 0.12.1
 Author: Stef van Buuren
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
-Description: The package collects 186 growth references for various  
+Description: Collects 186 growth references for various  
     populations of children 0-21 years living in The Netherlands. 
     Provides tools to convert between measurements, Z-scores and percentiles.
-    Defines the analysis metric of JAMES.
 Encoding: UTF-8
 License: AGPL-3
 Copyright: Stef van Buuren 2021
@@ -22,7 +21,7 @@ Imports:
     utils
 Suggests:
     testthat (>= 3.0.0)
-Remotes:
+Remotes: 
     growthcharts/centile
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
