@@ -1,3 +1,8 @@
+# nlreferences 0.12.1
+
+* Adds two spaces at remotes in DESCRIPTION
+* Omits LazyData from DESCRIPTION
+
 # nlreferences 0.12.0
 
 * Switches on continuous integration
