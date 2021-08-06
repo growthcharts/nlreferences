@@ -179,7 +179,7 @@ Z-scores for any variables it finds.</p>
     <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>hgt <span class='op'>=</span> <span class='fl'>60</span>, wgt <span class='op'>=</span> <span class='fl'>5</span>, hdc <span class='op'>=</span> <span class='fl'>40</span>, age <span class='op'>=</span> <span class='fl'>0.3</span>,
 sex <span class='op'>=</span> <span class='st'>"male"</span>, ga <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>30</span>, <span class='fl'>40</span>, <span class='fl'>50</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>transform2z</span><span class='op'>(</span><span class='va'>df</span>, ynames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"hdc"</span>, <span class='st'>"wfh"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 x 2</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 4 × 2</span>
 #&gt;    hdc_z wfh_z
 #&gt;    <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
 #&gt; <span style='color: #BCBCBC;'>1</span> <span style='color: #BB0000;'>NA</span>     -<span style='color: #BB0000;'>1.66</span>
