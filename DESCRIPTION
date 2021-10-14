@@ -1,7 +1,7 @@
 Package: nlreferences
 Type: Package
 Title: Growth References for Children Living in the Netherlands
-Version: 0.12.1
+Version: 0.13.0
 Author: Stef van Buuren
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: Collects 186 growth references for various  

@@ -1,3 +1,7 @@
+# nlreferences 0.13.0
+
+* Adds `renv` package management
+
 # nlreferences 0.12.1
 
 * Adds two spaces at remotes in DESCRIPTION
