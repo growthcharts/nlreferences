@@ -26,3 +26,4 @@ Remotes:
     growthcharts/centile
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
+RoxygenNote: 7.1.2
