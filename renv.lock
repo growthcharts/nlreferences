@@ -67,9 +67,15 @@
     },
     "centile": {
       "Package": "centile",
-      "Version": "0.12.1",
-      "Source": "unknown",
-      "Hash": "972c3fb31edb6f4a895cfb1575026d9c"
+      "Version": "0.13.0",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "centile",
+      "RemoteUsername": "growthcharts",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c6b629c59e8c49de292c139808dd8b8b3a7074c8",
+      "Hash": "b38bcc95cbe488a214abd7c9af1e95b0"
     },
     "cli": {
       "Package": "cli",
