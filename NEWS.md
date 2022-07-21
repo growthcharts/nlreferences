@@ -1,3 +1,7 @@
+# nlreferences 0.13.1
+
+* Updates `renv` packages to R 4.2.1
+
 # nlreferences 0.13.0
 
 * Adds `renv` package management
