@@ -8,7 +8,8 @@ transform2z(
   data,
   ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
   pkg = "nlreferences",
-  verbose = FALSE
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
@@ -26,6 +27,9 @@ default, \code{transform2z} searches the \code{nlreferences} package.}
 \item{verbose}{Set to \code{TRUE} to turn on warnings and messages, which is
 useful for tracking down problem related to missing data or to the
 availability of references.}
+
+\item{\dots}{Arguments passed down to \code{\link[centile:y2z]{centile::y2z()}}, e.g. \code{rule = c(1, 2)}
+to calculate Z-scores beyond the maximum age in the reference table.}
 }
 \value{
 A data frame with either zero rows or the same number of rows

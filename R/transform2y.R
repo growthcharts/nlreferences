@@ -20,6 +20,8 @@
 #' @param znames Character vector containing the names of the Z-scores
 #' to convert. Specify this to limit the number of conversions. If not specified, the
 #' function calculates measurements for all Z-scores.
+#' @param \dots Arguments passed down to [centile::z2y()], e.g. `rule = c(1, 2)`
+#' to calculate Z-scores beyond the maximum age in the reference table.
 #' @return
 #' A data frame with either zero rows or the same number of rows
 #' as `nrow(data)` with colums named `hgt`, `wgt`, and so on.
@@ -32,7 +34,8 @@
 transform2y <- function(data,
                         znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
                         pkg = "nlreferences",
-                        verbose = FALSE) {
+                        verbose = FALSE,
+                        ...) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
   vars <- colnames(data)
@@ -67,7 +70,8 @@ transform2y <- function(data,
                                                                       sex = long$sex,
                                                                       sub = ifelse(long$pt, long$ga, "nl")),
                                                pkg = pkg,
-                                               verbose = verbose)
+                                               verbose = verbose,
+                                               ...)
   long <- long %>%
     select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(todo)) %>%
     pivot_longer(cols = all_of(todo), names_to = "zname", values_to = "z") %>%

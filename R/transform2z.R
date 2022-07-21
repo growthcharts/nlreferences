@@ -19,6 +19,8 @@
 #' @param verbose Set to `TRUE` to turn on warnings and messages, which is
 #' useful for tracking down problem related to missing data or to the
 #' availability of references.
+#' @param \dots Arguments passed down to [centile::y2z()], e.g. `rule = c(1, 2)`
+#' to calculate Z-scores beyond the maximum age in the reference table.
 #' @return
 #' A data frame with either zero rows or the same number of rows
 #' as `nrow(data)` with colums named `hgt_z`, `wgt_z`, and so on.
@@ -32,7 +34,8 @@
 transform2z <- function(data,
                         ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
                         pkg = "nlreferences",
-                        verbose = FALSE) {
+                        verbose = FALSE,
+                        ...) {
   if (!is.data.frame(data))
     stop("Argument `data` should be a data frame.")
   vars <- colnames(data)
@@ -70,7 +73,8 @@ transform2z <- function(data,
                    x = .data$x,
                    refcode = .data$refcode,
                    pkg = pkg,
-                   verbose = verbose))
+                   verbose = verbose,
+                   ...))
 
   # fold back Z-scores into wide
   long %>%
