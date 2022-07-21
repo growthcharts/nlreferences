@@ -1,3 +1,7 @@
+# nlreferences 0.14.0
+
+* `transform2z()` and `transform2y()` now pass down additional arguments to `centile::y2z()` and `centile::z2y()` to allow for calculation of Z-scores outside the age limits of the reference table (e.g. by setting `rule = c(1, 2)` for right hand extrapolation). 
+
 # nlreferences 0.13.1
 
 * Updates `renv` packages to R 4.2.1
