@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nlreferences</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.13.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.14.0</span>
       </span>
     </div>
 
@@ -47,6 +47,10 @@
       <small>Source: <a href="https://github.com/growthcharts/nlreferences/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.14.0" id="nlreferences-0140">nlreferences 0.14.0<a class="anchor" aria-label="anchor" href="#nlreferences-0140"></a></h2>
+<ul><li>
+<code><a href="../reference/transform2z.html">transform2z()</a></code> and <code><a href="../reference/transform2y.html">transform2y()</a></code> now pass down additional arguments to <code><a href="https://rdrr.io/pkg/centile/man/y2z.html" class="external-link">centile::y2z()</a></code> and <code><a href="https://rdrr.io/pkg/centile/man/z2y.html" class="external-link">centile::z2y()</a></code> to allow for calculation of Z-scores outside the age limits of the reference table (e.g. by setting <code>rule = c(1, 2)</code> for right hand extrapolation).</li></ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.13.1" id="nlreferences-0131">nlreferences 0.13.1<a class="anchor" aria-label="anchor" href="#nlreferences-0131"></a></h2>
 <ul><li>Updates <code>renv</code> packages to R 4.2.1</li></ul></div>
