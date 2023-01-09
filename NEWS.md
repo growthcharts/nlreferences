@@ -1,3 +1,10 @@
+# nlreferences 0.15.0
+
+* Updates to `tidyselect 1.2.0` grammar for `select()` and `pivot_...()`
+* Updates `roxygen``
+* Updates GH actions
+* Updates `renv` and `renv.lock`
+
 # nlreferences 0.14.0
 
 * `transform2z()` and `transform2y()` now pass down additional arguments to `centile::y2z()` and `centile::z2y()` to allow for calculation of Z-scores outside the age limits of the reference table (e.g. by setting `rule = c(1, 2)` for right hand extrapolation). 
