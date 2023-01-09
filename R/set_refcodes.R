@@ -41,11 +41,11 @@
 #' @references [D-score adjustment for pre-terms](https://d-score.org/dbook1/sec-pops.html#conclusions)
 #' @examples
 #' df <- data.frame(
-#'   xname = c("age", "age", "age", "age", "hgt", "age"),
-#'   yname = c("hgt", "hgt", "hdc", "hdc", "wfh", "dsc"),
-#'   x = c(0.1, 0.1, 0.1, 1.6, 60, 1.0),
-#'   sex = rep(c("male", "female"), 3),
-#'   ga = c(39, 27, 27, 27, 39, 40))
+#'   xname = c("age", "age", "age", "age", "hgt", "age", "age"),
+#'   yname = c("hgt", "hgt", "hdc", "hdc", "wfh", "dsc", "wgt"),
+#'   x = c(0.1, NA, 0.1, 1.6, 60, 1.0, 1.0),
+#'   sex = c(rep(c("male", "female"), 3), "male"),
+#'   ga = c(39, 27, 27, 27, 39, 40, 40))
 #' refcodes <- set_refcodes(df)
 #'
 #' # show the preterm 27 weeks hgt reference
