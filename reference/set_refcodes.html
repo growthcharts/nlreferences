@@ -18,7 +18,7 @@ and gestational age."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">nlreferences</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.14.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.14.1</span>
       </span>
     </div>
 
@@ -112,30 +112,29 @@ disappears after four months.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  xname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"hgt"</span>, <span class="st">"age"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  yname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hgt"</span>, <span class="st">"hgt"</span>, <span class="st">"hdc"</span>, <span class="st">"hdc"</span>, <span class="st">"wfh"</span>, <span class="st">"dsc"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1.6</span>, <span class="fl">60</span>, <span class="fl">1.0</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"male"</span>, <span class="st">"female"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  ga <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">39</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">39</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  xname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"age"</span>, <span class="st">"hgt"</span>, <span class="st">"age"</span>, <span class="st">"age"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  yname <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hgt"</span>, <span class="st">"hgt"</span>, <span class="st">"hdc"</span>, <span class="st">"hdc"</span>, <span class="st">"wfh"</span>, <span class="st">"dsc"</span>, <span class="st">"wgt"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="cn">NA</span>, <span class="fl">0.1</span>, <span class="fl">1.6</span>, <span class="fl">60</span>, <span class="fl">1.0</span>, <span class="fl">1.0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"male"</span>, <span class="st">"female"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"male"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ga <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">39</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">27</span>, <span class="fl">39</span>, <span class="fl">40</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">refcodes</span> <span class="op">&lt;-</span> <span class="fu">set_refcodes</span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># show the preterm 27 weeks hgt reference</span></span></span>
 <span class="r-in"><span><span class="fu">centile</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/centile/man/load_reference.html" class="external-link">load_reference</a></span><span class="op">(</span><span class="va">refcodes</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, pkg <span class="op">=</span> <span class="st">"nlreferences"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 61 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         x  mean    sd</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 0       32.7  3.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 0.002<span style="text-decoration: underline;">7</span>  32.8  3.09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 0.005<span style="text-decoration: underline;">5</span>  33.0  3.07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 0.008<span style="text-decoration: underline;">2</span>  33.2  3.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 0.011   33.4  3.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 0.013<span style="text-decoration: underline;">7</span>  33.6  3.03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 0.016<span style="text-decoration: underline;">4</span>  33.8  3.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 0.019<span style="text-decoration: underline;">2</span>  34.0  3.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 0.021<span style="text-decoration: underline;">9</span>  34.2  2.98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 0.024<span style="text-decoration: underline;">6</span>  34.4  2.97</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 51 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ Use `print(n = ...)` to see more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 69 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         x     L     M      S</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 0          1  50.9 0.037<span style="text-decoration: underline;">6</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 0.019<span style="text-decoration: underline;">2</span>     1  51.6 0.037<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 0.038<span style="text-decoration: underline;">3</span>     1  52.3 0.037<span style="text-decoration: underline;">5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 0.057<span style="text-decoration: underline;">5</span>     1  52.9 0.037<span style="text-decoration: underline;">4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 0.076<span style="text-decoration: underline;">7</span>     1  53.6 0.037<span style="text-decoration: underline;">3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 0.095<span style="text-decoration: underline;">8</span>     1  54.3 0.037 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 0.115      1  55.0 0.036<span style="text-decoration: underline;">9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 0.134      1  55.7 0.036<span style="text-decoration: underline;">8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 0.153      1  56.4 0.036<span style="text-decoration: underline;">8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 0.172      1  57.0 0.036<span style="text-decoration: underline;">7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 59 more rows</span></span>
 </code></pre></div>
     </div>
   </div>
@@ -150,7 +149,7 @@ disappears after four months.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
