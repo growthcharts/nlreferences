@@ -1,7 +1,7 @@
 Package: nlreferences
 Type: Package
 Title: Growth References for Children Living in the Netherlands
-Version: 0.14.0
+Version: 0.14.1
 Author: Stef van Buuren
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: Collects 186 growth references for various  
@@ -9,7 +9,6 @@ Description: Collects 186 growth references for various
     Provides tools to convert between measurements, Z-scores and percentiles.
 Encoding: UTF-8
 License: AGPL-3
-Copyright: Stef van Buuren 2021
 URL: https://github.com/growthcharts/nlreferences
 Depends: 
     R (>= 2.10)
