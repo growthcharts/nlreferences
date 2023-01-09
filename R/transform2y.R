@@ -73,7 +73,7 @@ transform2y <- function(data,
                                                verbose = verbose,
                                                ...)
   long <- long %>%
-    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(todo)) %>%
+    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo))) %>%
     pivot_longer(cols = all_of(todo), names_to = "zname", values_to = "z") %>%
     mutate(yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
            x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
@@ -87,7 +87,7 @@ transform2y <- function(data,
 
   # fold back data into wide
   long %>%
-    select(.data$row, .data$yname, .data$y) %>%
-    pivot_wider(id_cols = .data$row, names_from = .data$yname, values_from = .data$y) %>%
-    select(-.data$row)
+    select(all_of(c("row", "yname", "y"))) %>%
+    pivot_wider(id_cols = "row", names_from = "yname", values_from = "y") %>%
+    select(-"row")
 }

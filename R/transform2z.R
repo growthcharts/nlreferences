@@ -64,7 +64,7 @@ transform2z <- function(data,
   long <- data %>%
     mutate(row = row_number(),
            xhgt = !! xhgt) %>%
-    select(.data$row, .data$age, .data$xhgt, .data$sex, .data$ga, all_of(todo)) %>%
+    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo))) %>%
     pivot_longer(cols = all_of(todo), names_to = "yname", values_to = "y") %>%
     mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
@@ -78,8 +78,8 @@ transform2z <- function(data,
 
   # fold back Z-scores into wide
   long %>%
-    select(.data$row, .data$yname, .data$z) %>%
-    pivot_wider(id_cols = .data$row, names_from = .data$yname, values_from = .data$z) %>%
-    select(-.data$row) %>%
+    select(all_of(c("row", "yname", "z"))) %>%
+    pivot_wider(id_cols = "row", names_from = "yname", values_from = "z") %>%
+    select(-"row") %>%
     rename_with(paste0, names(.), "_z")
 }
