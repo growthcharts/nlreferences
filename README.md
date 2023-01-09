@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/growthcharts/nlreferences/workflows/R-CMD-check/badge.svg)](https://github.com/growthcharts/nlreferences/actions)
+[![R-CMD-check](https://github.com/growthcharts/nlreferences/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/growthcharts/nlreferences/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The nlreferences package provides Dutch reference values.
