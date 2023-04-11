@@ -1,3 +1,7 @@
+# nlreferences 0.16.0
+
+* Replaces Dutch D-score reference by GSED Phase 1 reference. Affects `transform2y()` and `transform2z()`
+
 # nlreferences 0.15.0
 
 * Updates to `tidyselect 1.2.0` grammar for `select()` and `pivot_...()`
