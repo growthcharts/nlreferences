@@ -78,8 +78,9 @@ set_refcodes <- function(data) {
       ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
       pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) &
         ((.data$age <= 4 & .data$yname != "hdc") | (.data$age <= 1.5 & .data$yname == "hdc")),
+      name = ifelse(.data$yname == "dsc", "ph", "nl"),
       year = ifelse(.data$pt, "2012", "1997"),
-      year = ifelse(.data$yname == "dsc", "2014", .data$year),
+      year = ifelse(.data$yname == "dsc", "2023", .data$year),
       year = ifelse(.data$pt & .data$yname == "bmi", "1997", .data$year),
       sub = "",
       sub = ifelse(.data$pt & .data$yname %in% c("hgt", "wgt", "hdc", "dsc"),
@@ -91,7 +92,7 @@ set_refcodes <- function(data) {
       sub = ifelse(!.data$pt & .data$yname == "wfh", "nla", .data$sub),
       sub = ifelse(.data$sub == "nla" & !is.na(.data$age) & .data$age > 16, "nlb", .data$sub),
       refcode = make_refcode(
-        name = "nl",
+        name = .data$name,
         year = .data$year,
         yname = .data$yname,
         sex = .data$sex,
