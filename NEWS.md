@@ -1,6 +1,8 @@
-# nlreferences 0.16.0
+# nlreferences 0.15.1
 
 * Replaces Dutch D-score reference by GSED Phase 1 reference. Affects `transform2y()` and `transform2z()`
+* Add test for daz calculation using GSED Phase 1 reference
+* Removes `renv` functionality
 
 # nlreferences 0.15.0
 
