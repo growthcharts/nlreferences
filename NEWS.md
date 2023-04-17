@@ -1,3 +1,7 @@
+# nlreferences 0.15.2
+
+* Refresh all references so that `length(refcode)` matches the number of imported files
+
 # nlreferences 0.15.1
 
 * Replaces Dutch D-score reference by GSED Phase 1 reference. Affects `transform2y()` and `transform2z()`
