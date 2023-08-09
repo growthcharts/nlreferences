@@ -53,7 +53,7 @@ Next you need your data, in the long format, and
 
 ``` r
 data <- data.frame(
-  age = c(0.5, 10, 18, 14, 12),
+  age = c(0.5, 10, 17.411, 14.328, 11.9),
   sex = c("male", "male", "female", "female", "male"),
   y = c(42.037, 60, 70, NA, 70)
 )
@@ -61,9 +61,9 @@ data
 #>    age    sex  y
 #> 1  0.5   male 42
 #> 2 10.0   male 60
-#> 3 18.0 female 70
-#> 4 14.0 female NA
-#> 5 12.0   male 70
+#> 3 17.4 female 70
+#> 4 14.3 female NA
+#> 5 11.9   male 70
 ```
 
 Load the packages, and the run the `y2z()` function. Specify for each
@@ -85,9 +85,9 @@ data
 #>    age    sex  y                 ref     z
 #> 1  0.5   male 42   nl_1997_wst_male_ 0.000
 #> 2 10.0   male 60   nl_1997_wst_male_ 0.019
-#> 3 18.0 female 70 nl_1997_wst_female_ 0.080
-#> 4 14.0 female NA nl_1997_wst_female_    NA
-#> 5 12.0   male 70   nl_1997_wst_male_ 0.953
+#> 3 17.4 female 70 nl_1997_wst_female_ 0.150
+#> 4 14.3 female NA nl_1997_wst_female_    NA
+#> 5 11.9   male 70   nl_1997_wst_male_ 0.985
 ```
 
 ## Literature
