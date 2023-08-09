@@ -29,7 +29,7 @@ boys and girls using the references published in Fredriks AM et al
 
 The calculation requires two R packages: `nlreferences` (with the
 reference data) and `centile` (with the calculation method). Install
-both. You only need to do this once.
+both. You need to do this only once.
 
 ``` r
 install.packages("remotes")
@@ -49,54 +49,63 @@ without the path and extension.
 refs <- c("nl_1997_wst_male_", "nl_1997_wst_female_")
 ```
 
-Next you need your data, in the long format, and
+Next you need your data organized into “long format”. A minimal example
+is
 
 ``` r
 data <- data.frame(
-  age = c(0.5, 10, 17.411, 14.328, 11.9),
-  sex = c("male", "male", "female", "female", "male"),
+  age = c(0.5, 10, 17.411, 14.328, NA),
+  sex = c("male", NA, "female", "female", "male"),
   y = c(42.037, 60, 70, NA, 70)
 )
 data
 #>    age    sex  y
 #> 1  0.5   male 42
-#> 2 10.0   male 60
+#> 2 10.0   <NA> 60
 #> 3 17.4 female 70
 #> 4 14.3 female NA
-#> 5 11.9   male 70
+#> 5   NA   male 70
 ```
 
 Load the packages, and the run the `y2z()` function. Specify for each
-record the reference that you want to use, and convert measurement (`y`)
-into Z-score (`z`).
+record the reference that you want to use, and convert each measurement
+`y` into a Z-score `z`.
 
 ``` r
 library(centile)
 library(nlreferences)
 
 data$ref <- ifelse(data$sex == "male", refs[1], refs[2])
-data$z <- y2z(y = data$y, x = data$age, refcode = data$ref, pkg = "nlreferences", verbose = TRUE)
+data$z <- y2z(y = data$y, x = data$age, refcode = data$ref, pkg = "nlreferences")
 ```
 
 And presto, your data with two extra columns `ref` and `z`.
 
 ``` r
 data
-#>    age    sex  y                 ref     z
-#> 1  0.5   male 42   nl_1997_wst_male_ 0.000
-#> 2 10.0   male 60   nl_1997_wst_male_ 0.019
-#> 3 17.4 female 70 nl_1997_wst_female_ 0.150
-#> 4 14.3 female NA nl_1997_wst_female_    NA
-#> 5 11.9   male 70   nl_1997_wst_male_ 0.985
+#>    age    sex  y                 ref    z
+#> 1  0.5   male 42   nl_1997_wst_male_ 0.00
+#> 2 10.0   <NA> 60                <NA>   NA
+#> 3 17.4 female 70 nl_1997_wst_female_ 0.15
+#> 4 14.3 female NA nl_1997_wst_female_   NA
+#> 5   NA   male 70   nl_1997_wst_male_   NA
 ```
+
+Tips:
+
+- Column `z` will be `NA` when it cannot be calculated. Add argument
+  `verbose = TRUE` to generate warnings;
+- Use `y2p()` for conversion into percentiles;
+- Use `z2y()` to convert Z-scores back into the original measurement
+  scale;
+- Use `tidyr::pivot_longer()` to convert wide to long organisation;
+- When you have multiple measurements (e.g. also height and weight), add
+  more rows to `data`, and specify the desired reference name in each
+  row.
 
 ## Literature
 
 - Fredriks AM, van Buuren S, Fekkes M, Verloove-Vanhorick SP & Wit
   JM (2005) Are age references for waist circumference, hip
   circumference and waist-hip ratio in Dutch children useful in clinical
-  practice? European Journal of Pediatrics, 164, 216-222; Fredriks AM,
-  van Buuren S, van Heel WJM, Dijkman-Neerincx RHM, Verloove-Vanhorick
-  SP & Wit JM (2005) Nationwide age references for sitting height, leg
-  length, and sitting height/height ratio, and their diagnostic value
-  for disproportionate growth disorders. Arch. Dis. Child., 90, 807-812.
+  practice? European Journal of Pediatrics, 164, 216-222.
