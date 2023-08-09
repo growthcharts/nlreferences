@@ -36,7 +36,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">nlreferences</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.15.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.16.0</span>
       </span>
     </div>
 
@@ -81,6 +81,56 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"growthcharts/nlreferences"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>Suppose you want to calculate Z-scores for waist circumference for Dutch boys and girls using the references published in Fredriks AM et al (2005).</p>
+<p>The calculation requires two R packages: <code>nlreferences</code> (with the reference data) and <code>centile</code> (with the calculation method). Install both. You only need to do this once.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"growthcharts/nlreferences"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"growthcharts/centile"</span><span class="op">)</span></span></code></pre></div>
+<p>The raw reference coordinates for boys and girls can be found in the <code>nlreferences</code> package as files <code>data-raw/data/nl1997/nl_1997_wst_male_.txt</code> and <code>data-raw/data/nl1997/nl_1997_wst_female_.txt</code>. See <a href="https://github.com/growthcharts/nlreferences/tree/master/data-raw/data/nl1997" class="external-link uri">https://github.com/growthcharts/nlreferences/tree/master/data-raw/data/nl1997</a>. To calculate Z-score for waist circumference, you need their file names without the path and extension.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">refs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nl_1997_wst_male_"</span>, <span class="st">"nl_1997_wst_female_"</span><span class="op">)</span></span></code></pre></div>
+<p>Next you need your data, in the long format, and</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>  age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">10</span>, <span class="fl">18</span>, <span class="fl">14</span>, <span class="fl">12</span><span class="op">)</span>,</span>
+<span>  sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"male"</span>, <span class="st">"male"</span>, <span class="st">"female"</span>, <span class="st">"female"</span>, <span class="st">"male"</span><span class="op">)</span>,</span>
+<span>  y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">42.037</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="cn">NA</span>, <span class="fl">70</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">data</span></span>
+<span><span class="co">#&gt;    age    sex  y</span></span>
+<span><span class="co">#&gt; 1  0.5   male 42</span></span>
+<span><span class="co">#&gt; 2 10.0   male 60</span></span>
+<span><span class="co">#&gt; 3 18.0 female 70</span></span>
+<span><span class="co">#&gt; 4 14.0 female NA</span></span>
+<span><span class="co">#&gt; 5 12.0   male 70</span></span></code></pre></div>
+<p>Load the packages, and the run the <code><a href="https://rdrr.io/pkg/centile/man/y2z.html" class="external-link">y2z()</a></code> function. Specify for each record the reference that you want to use, and convert measurement (<code>y</code>) into Z-score (<code>z</code>).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/growthcharts/centile" class="external-link">centile</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/growthcharts/nlreferences" class="external-link">nlreferences</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">ref</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">sex</span> <span class="op">==</span> <span class="st">"male"</span>, <span class="va">refs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">refs</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">data</span><span class="op">$</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/centile/man/y2z.html" class="external-link">y2z</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span>, x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">age</span>, refcode <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">ref</span>, pkg <span class="op">=</span> <span class="st">"nlreferences"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>And presto, your data with two extra columns <code>ref</code> and <code>z</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span></span>
+<span><span class="co">#&gt;    age    sex  y                 ref     z</span></span>
+<span><span class="co">#&gt; 1  0.5   male 42   nl_1997_wst_male_ 0.000</span></span>
+<span><span class="co">#&gt; 2 10.0   male 60   nl_1997_wst_male_ 0.019</span></span>
+<span><span class="co">#&gt; 3 18.0 female 70 nl_1997_wst_female_ 0.080</span></span>
+<span><span class="co">#&gt; 4 14.0 female NA nl_1997_wst_female_    NA</span></span>
+<span><span class="co">#&gt; 5 12.0   male 70   nl_1997_wst_male_ 0.953</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="literature">Literature<a class="anchor" aria-label="anchor" href="#literature"></a>
+</h2>
+<ul>
+<li>Fredriks AM, van Buuren S, Fekkes M, Verloove-Vanhorick SP &amp; Wit JM (2005) Are age references for waist circumference, hip circumference and waist-hip ratio in Dutch children useful in clinical practice? European Journal of Pediatrics, 164, 216-222; Fredriks AM, van Buuren S, van Heel WJM, Dijkman-Neerincx RHM, Verloove-Vanhorick SP &amp; Wit JM (2005) Nationwide age references for sitting height, leg length, and sitting height/height ratio, and their diagnostic value for disproportionate growth disorders. Arch. Dis. Child., 90, 807-812.</li>
+</ul>
 </div>
 </div>
   </div>
