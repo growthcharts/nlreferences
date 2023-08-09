@@ -1,3 +1,7 @@
+# nlreferences 0.16.0
+
+* Add example to the `README.Rmd`
+
 # nlreferences 0.15.2
 
 * Refresh all references so that `length(refcode)` matches the number of imported files
