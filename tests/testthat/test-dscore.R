@@ -20,12 +20,20 @@ data <- data.frame(
 # 10 0.0575 2 1.0 15.30 3.85  0.277
 
 expected_d <- c(NA, NA, 6.61, 5.60, 9.09, 9.09, 9.09, 9.09, 15.30, 15.30)
-expected_daz <- c(NA, NA, -2.019, -2.235, -1.447, -1.447, -1.447, -1.447, 0.277, 0.277)
+expected_daz <- c(
+  NA,
+  NA,
+  -2.019,
+  -2.235,
+  -1.447,
+  -1.447,
+  -1.447,
+  -1.447,
+  0.277,
+  0.277
+)
 
-df <- data.frame(age = data$age,
-                 dsc = expected_d,
-                 sex = "male",
-                 ga = 40)
+df <- data.frame(age = data$age, dsc = expected_d, sex = "male", ga = 40)
 res <- nlreferences::transform2z(df, ynames = "dsc", verbose = TRUE)
 daz <- dplyr::pull(res)
 
@@ -35,9 +43,19 @@ test_that("produces correct DAZ-scores", {
 
 # default key: "gsed" (currently points to "gsed2212", population "phase1")
 expected_d <- c(NA, NA, 6.61, 5.60, 9.09, 9.09, 9.09, 9.09, 15.30, 15.30)
-expected_daz <- c(NA, NA, -2.019, -2.235, -1.447, -1.447, -1.447, -1.447, 0.277, 0.277)
+expected_daz <- c(
+  NA,
+  NA,
+  -2.019,
+  -2.235,
+  -1.447,
+  -1.447,
+  -1.447,
+  -1.447,
+  0.277,
+  0.277
+)
 # test_that("produces expected D-scores - key gsed", {
 #   expect_identical(z$d, expected_d)
 #   expect_identical(z$daz, expected_daz)
 # })
-

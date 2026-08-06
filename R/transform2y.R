@@ -31,23 +31,35 @@
 #' sex = "male", ga = c(20, 30, 40, 50))
 #' transform2y(df, znames = c("hdc_z", "wfh_z"))
 #' @export
-transform2y <- function(data,
-                        znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
-                        pkg = "nlreferences",
-                        verbose = FALSE,
-                        ...) {
-  if (!is.data.frame(data))
+transform2y <- function(
+  data,
+  znames = c("hgt_z", "wgt_z", "hdc_z", "wfh_z", "bmi_z", "dsc_z"),
+  pkg = "nlreferences",
+  verbose = FALSE,
+  ...
+) {
+  if (!is.data.frame(data)) {
     stop("Argument `data` should be a data frame.")
+  }
   vars <- colnames(data)
   todo <- intersect(vars, znames)
-  if (!length(todo))
-    stop("Expected one of `hgt_z`, `wgt_z`, `hdc_z`, `wfh_z`, `bmi_z`, `dsc_z`.")
-  if (!"age" %in% vars && any(c("hgt_z", "wgt_z", "hdc_z", "bmi_z", "dsc_z") %in% todo))
+  if (!length(todo)) {
+    stop(
+      "Expected one of `hgt_z`, `wgt_z`, `hdc_z`, `wfh_z`, `bmi_z`, `dsc_z`."
+    )
+  }
+  if (
+    !"age" %in% vars &&
+      any(c("hgt_z", "wgt_z", "hdc_z", "bmi_z", "dsc_z") %in% todo)
+  ) {
     stop("Required variable `age` not found.")
-  if ("wfh_z" %in% todo && !any(c("hgt", "hgt_z") %in% vars))
+  }
+  if ("wfh_z" %in% todo && !any(c("hgt", "hgt_z") %in% vars)) {
     stop("Required variable `hgt` or `hgt_z` not found.")
-  if (!"sex" %in% vars)
+  }
+  if (!"sex" %in% vars) {
     stop("Required variable `sex` not found.")
+  }
   if (!"ga" %in% vars) {
     message("Variable `ga` not found. Assuming term births only.")
     data$ga <- 40
@@ -55,40 +67,61 @@ transform2y <- function(data,
 
   # calculate measurement from Z-scores using long form
   long <- data |>
-    mutate(row = row_number(),
-           ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
-           pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4)
+    mutate(
+      row = row_number(),
+      ga = ifelse(
+        !is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21,
+        25,
+        .data$ga
+      ),
+      pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4
+    )
 
   # replacement for xheight
   long$xhgt <- rep(NA_real_, nrow(long))
-  if ("hgt" %in% vars) long$xhgt <- long$hgt
-  else if ("hgt_z" %in% vars) long$xhgt <- z2y(z = long$hgt_z,
-                                               x = long$age,
-                                               refcode = make_refcode(name = "nl",
-                                                                      year = ifelse(long$pt, "2012", "1997"),
-                                                                      yname = "hgt",
-                                                                      sex = long$sex,
-                                                                      sub = ifelse(long$pt, long$ga, "nl")),
-                                               pkg = pkg,
-                                               verbose = verbose,
-                                               ...)
+  if ("hgt" %in% vars) {
+    long$xhgt <- long$hgt
+  } else if ("hgt_z" %in% vars) {
+    long$xhgt <- z2y(
+      z = long$hgt_z,
+      x = long$age,
+      refcode = make_refcode(
+        name = "nl",
+        year = ifelse(long$pt, "2012", "1997"),
+        yname = "hgt",
+        sex = long$sex,
+        sub = ifelse(long$pt, long$ga, "nl")
+      ),
+      pkg = pkg,
+      verbose = verbose,
+      ...
+    )
+  }
   wide <- long |>
     select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
-  long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
-               c("row", "age", "xhgt", "sex", "ga")]
+  long <- wide[
+    rep(seq_len(nrow(wide)), times = length(todo)),
+    c("row", "age", "xhgt", "sex", "ga")
+  ]
   long$zname <- rep(todo, each = nrow(wide))
   long$z <- unlist(wide[todo], use.names = FALSE)
   rownames(long) <- NULL
   long <- long |>
-    mutate(yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
-           x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
-           xname = ifelse(.data$yname == "wfh", "hgt", "age")) |>
-    mutate(refcode = set_refcodes(data = pick(everything())),
-           y = z2y(z = .data$z,
-                   x = .data$x,
-                   refcode = .data$refcode,
-                   pkg = pkg,
-                   verbose = verbose))
+    mutate(
+      yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
+      x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
+      xname = ifelse(.data$yname == "wfh", "hgt", "age")
+    ) |>
+    mutate(
+      refcode = set_refcodes(data = pick(everything())),
+      y = z2y(
+        z = .data$z,
+        x = .data$x,
+        refcode = .data$refcode,
+        pkg = pkg,
+        verbose = verbose
+      )
+    )
 
   # fold back data into wide
   ynames_todo <- unique(long$yname)

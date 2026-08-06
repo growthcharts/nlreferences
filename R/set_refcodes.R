@@ -52,17 +52,20 @@
 #' centile::load_reference(refcodes[2], pkg = "nlreferences")
 #' @export
 set_refcodes <- function(data) {
-  if (!is.data.frame(data))
+  if (!is.data.frame(data)) {
     stop("Argument `data` should be a data frame.")
-  if (!nrow(data))
+  }
+  if (!nrow(data)) {
     return(character(0))
+  }
   req <- c("xname", "yname", "x", "sex")
   if (!all(hasName(data, req))) {
     stop("Not found: ", paste(req[!hasName(data, req)], collapse = ", ", "."))
   }
   if (hasName(data, "age")) {
-    if (all(is.na(data$age)))
+    if (all(is.na(data$age))) {
       data$age <- ifelse(data$xname == "age", data$x, NA_real_)
+    }
   }
   if (!hasName(data, "age")) {
     data$age <- ifelse(data$xname == "age", data$x, NA_real_)
@@ -75,27 +78,46 @@ set_refcodes <- function(data) {
   data |>
     select(all_of(c(req, "age", "ga"))) |>
     mutate(
-      ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
-      pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) &
-        ((.data$age <= 4 & .data$yname != "hdc") | (.data$age <= 1.5 & .data$yname == "hdc")),
+      ga = ifelse(
+        !is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21,
+        25,
+        .data$ga
+      ),
+      pt = !is.na(.data$ga) &
+        .data$ga <= 36 &
+        !is.na(.data$age) &
+        ((.data$age <= 4 & .data$yname != "hdc") |
+          (.data$age <= 1.5 & .data$yname == "hdc")),
       name = ifelse(.data$yname == "dsc", "ph", "nl"),
       year = ifelse(.data$pt, "2012", "1997"),
       year = ifelse(.data$yname == "dsc", "2023", .data$year),
       year = ifelse(.data$pt & .data$yname == "bmi", "1997", .data$year),
       sub = "",
-      sub = ifelse(.data$pt & .data$yname %in% c("hgt", "wgt", "hdc", "dsc"),
-                   .data$ga, .data$sub),
-      sub = ifelse(!.data$pt & .data$yname %in% c("hgt", "wgt", "hdc"),
-                   "nl", .data$sub),
+      sub = ifelse(
+        .data$pt & .data$yname %in% c("hgt", "wgt", "hdc", "dsc"),
+        .data$ga,
+        .data$sub
+      ),
+      sub = ifelse(
+        !.data$pt & .data$yname %in% c("hgt", "wgt", "hdc"),
+        "nl",
+        .data$sub
+      ),
       sub = ifelse(.data$yname == "bmi", "nl", .data$sub),
       sub = ifelse(!.data$pt & .data$yname == "dsc", "40", .data$sub),
       sub = ifelse(!.data$pt & .data$yname == "wfh", "nla", .data$sub),
-      sub = ifelse(.data$sub == "nla" & !is.na(.data$age) & .data$age > 16, "nlb", .data$sub),
+      sub = ifelse(
+        .data$sub == "nla" & !is.na(.data$age) & .data$age > 16,
+        "nlb",
+        .data$sub
+      ),
       refcode = make_refcode(
         name = .data$name,
         year = .data$year,
         yname = .data$yname,
         sex = .data$sex,
-        sub = .data$sub)) |>
+        sub = .data$sub
+      )
+    ) |>
     pull(.data$refcode)
 }

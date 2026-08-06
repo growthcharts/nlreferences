@@ -31,26 +31,36 @@
 #' sex = "male", ga = c(20, 30, 40, 50))
 #' transform2z(df, ynames = c("hdc", "wfh"))
 #' @export
-transform2z <- function(data,
-                        ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
-                        pkg = "nlreferences",
-                        verbose = FALSE,
-                        ...) {
-  if (!is.data.frame(data))
+transform2z <- function(
+  data,
+  ynames = c("hgt", "wgt", "hdc", "wfh", "bmi", "dsc"),
+  pkg = "nlreferences",
+  verbose = FALSE,
+  ...
+) {
+  if (!is.data.frame(data)) {
     stop("Argument `data` should be a data frame.")
+  }
   vars <- colnames(data)
   todo <- intersect(c(vars, "wfh"), ynames)
-  if (!length(todo))
+  if (!length(todo)) {
     stop("Expected one of `hgt`, `wgt`, `hdc`, `wfh`, `bmi`, `dsc`.")
-  if (!"age" %in% vars && any(c("hgt", "wgt", "hdc", "bmi", "dsc") %in% todo))
+  }
+  if (!"age" %in% vars && any(c("hgt", "wgt", "hdc", "bmi", "dsc") %in% todo)) {
     stop("Required variable `age` not found.")
-  if (!"hgt" %in% vars && "wfh" %in% todo)
+  }
+  if (!"hgt" %in% vars && "wfh" %in% todo) {
     stop("Required variable `hgt` not found.")
-  if (!"wgt" %in% vars && "wfh" %in% todo)
+  }
+  if (!"wgt" %in% vars && "wfh" %in% todo) {
     stop("Required variable `wgt` not found.")
-  if ("wfh" %in% todo) data$wfh <- data$wgt
-  if (!"sex" %in% vars)
+  }
+  if ("wfh" %in% todo) {
+    data$wfh <- data$wgt
+  }
+  if (!"sex" %in% vars) {
     stop("Required variable `sex` not found.")
+  }
   if (!"ga" %in% vars) {
     message("Variable `ga` not found. Assuming term births only.")
     data$ga <- 40
@@ -58,28 +68,37 @@ transform2z <- function(data,
 
   # replacement for xheight
   xhgt <- rep(NA_real_, nrow(data))
-  if ("hgt" %in% vars) xhgt <- data$hgt
+  if ("hgt" %in% vars) {
+    xhgt <- data$hgt
+  }
 
   # calculate Z-scores for all ynames using long form
   wide <- data |>
-    mutate(row = row_number(),
-           xhgt = !! xhgt) |>
+    mutate(row = row_number(), xhgt = !!xhgt) |>
     select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
-  long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
-               c("row", "age", "xhgt", "sex", "ga")]
+  long <- wide[
+    rep(seq_len(nrow(wide)), times = length(todo)),
+    c("row", "age", "xhgt", "sex", "ga")
+  ]
   long$yname <- rep(todo, each = nrow(wide))
   long$y <- unlist(wide[todo], use.names = FALSE)
   rownames(long) <- NULL
   long <- long |>
-    mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
-           xname = ifelse(.data$yname == "wfh", "hgt", "age")) |>
-    mutate(refcode = set_refcodes(data = pick(everything())),
-           z = y2z(y = .data$y,
-                   x = .data$x,
-                   refcode = .data$refcode,
-                   pkg = pkg,
-                   verbose = verbose,
-                   ...))
+    mutate(
+      x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
+      xname = ifelse(.data$yname == "wfh", "hgt", "age")
+    ) |>
+    mutate(
+      refcode = set_refcodes(data = pick(everything())),
+      z = y2z(
+        y = .data$y,
+        x = .data$x,
+        refcode = .data$refcode,
+        pkg = pkg,
+        verbose = verbose,
+        ...
+      )
+    )
 
   # fold back Z-scores into wide
   result <- data.frame(row = sort(unique(long$row)))
