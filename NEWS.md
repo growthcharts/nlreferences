@@ -1,3 +1,10 @@
+# nlreferences 0.17.0
+
+* Replaces `tidyr` with base R in `transform2y/transform2z`
+* Replaces `magrittr` pipe with base pipe, moves `.data` to `dplyr`
+* Removes unused `dplyr` imports and bump `centile 0.16.0` requirement
+* Applies Air formatter
+
 # nlreferences 0.16.0
 
 * Add example to the `README.Rmd`
