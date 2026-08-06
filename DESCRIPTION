@@ -17,7 +17,6 @@ Imports:
     centile (>= 0.14.1),
     dplyr,
     rlang,
-    tidyr,
     utils
 Suggests:
     remotes,
@@ -26,4 +25,4 @@ Remotes:
     growthcharts/centile
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+Config/roxygen2/version: 8.0.0

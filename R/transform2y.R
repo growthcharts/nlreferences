@@ -72,9 +72,14 @@ transform2y <- function(data,
                                                pkg = pkg,
                                                verbose = verbose,
                                                ...)
+  wide <- long %>%
+    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
+  long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
+               c("row", "age", "xhgt", "sex", "ga")]
+  long$zname <- rep(todo, each = nrow(wide))
+  long$z <- unlist(wide[todo], use.names = FALSE)
+  rownames(long) <- NULL
   long <- long %>%
-    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo))) %>%
-    pivot_longer(cols = all_of(todo), names_to = "zname", values_to = "z") %>%
     mutate(yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
            x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
@@ -86,8 +91,12 @@ transform2y <- function(data,
                    verbose = verbose))
 
   # fold back data into wide
-  long %>%
-    select(all_of(c("row", "yname", "y"))) %>%
-    pivot_wider(id_cols = "row", names_from = "yname", values_from = "y") %>%
+  ynames_todo <- unique(long$yname)
+  result <- data.frame(row = sort(unique(long$row)))
+  for (nm in ynames_todo) {
+    sub <- long[long$yname == nm, c("row", "y")]
+    result[[nm]] <- sub$y[match(result$row, sub$row)]
+  }
+  result %>%
     select(-"row")
 }

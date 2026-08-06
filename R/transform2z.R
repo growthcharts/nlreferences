@@ -61,11 +61,16 @@ transform2z <- function(data,
   if ("hgt" %in% vars) xhgt <- data$hgt
 
   # calculate Z-scores for all ynames using long form
-  long <- data %>%
+  wide <- data %>%
     mutate(row = row_number(),
            xhgt = !! xhgt) %>%
-    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo))) %>%
-    pivot_longer(cols = all_of(todo), names_to = "yname", values_to = "y") %>%
+    select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
+  long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
+               c("row", "age", "xhgt", "sex", "ga")]
+  long$yname <- rep(todo, each = nrow(wide))
+  long$y <- unlist(wide[todo], use.names = FALSE)
+  rownames(long) <- NULL
+  long <- long %>%
     mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
            xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
     mutate(refcode = set_refcodes(data = .),
@@ -77,9 +82,12 @@ transform2z <- function(data,
                    ...))
 
   # fold back Z-scores into wide
-  long %>%
-    select(all_of(c("row", "yname", "z"))) %>%
-    pivot_wider(id_cols = "row", names_from = "yname", values_from = "z") %>%
+  result <- data.frame(row = sort(unique(long$row)))
+  for (nm in todo) {
+    sub <- long[long$yname == nm, c("row", "z")]
+    result[[nm]] <- sub$z[match(result$row, sub$row)]
+  }
+  result %>%
     select(-"row") %>%
     rename_with(paste0, names(.), "_z")
 }

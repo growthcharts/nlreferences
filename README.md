@@ -72,8 +72,8 @@ record the reference that you want to use, and convert each measurement
 `y` into a Z-score `z`.
 
 ``` r
-library(centile)
 library(nlreferences)
+library(centile)
 
 data$ref <- ifelse(data$sex == "male", refs[1], refs[2])
 data$z <- y2z(y = data$y, x = data$age, refcode = data$ref, pkg = "nlreferences")
@@ -98,7 +98,6 @@ Tips:
 - Use `y2p()` for conversion into percentiles;
 - Use `z2y()` to convert Z-scores back into the original measurement
   scale;
-- Use `tidyr::pivot_longer()` to convert wide to long organisation;
 - When you have multiple measurements (e.g. also height and weight), add
   more rows to `data`, and specify the desired reference name in each
   row.
