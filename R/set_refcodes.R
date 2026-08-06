@@ -72,8 +72,8 @@ set_refcodes <- function(data) {
     data$ga <- 40
   }
 
-  data %>%
-    select(all_of(c(req, "age", "ga"))) %>%
+  data |>
+    select(all_of(c(req, "age", "ga"))) |>
     mutate(
       ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
       pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) &
@@ -96,6 +96,6 @@ set_refcodes <- function(data) {
         year = .data$year,
         yname = .data$yname,
         sex = .data$sex,
-        sub = .data$sub)) %>%
+        sub = .data$sub)) |>
     pull(.data$refcode)
 }

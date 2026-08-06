@@ -54,7 +54,7 @@ transform2y <- function(data,
   }
 
   # calculate measurement from Z-scores using long form
-  long <- data %>%
+  long <- data |>
     mutate(row = row_number(),
            ga = ifelse(!is.na(.data$ga) & .data$ga < 25 & .data$ga >= 21, 25, .data$ga),
            pt = !is.na(.data$ga) & .data$ga <= 36 & !is.na(.data$age) & .data$age < 4)
@@ -72,18 +72,18 @@ transform2y <- function(data,
                                                pkg = pkg,
                                                verbose = verbose,
                                                ...)
-  wide <- long %>%
+  wide <- long |>
     select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
   long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
                c("row", "age", "xhgt", "sex", "ga")]
   long$zname <- rep(todo, each = nrow(wide))
   long$z <- unlist(wide[todo], use.names = FALSE)
   rownames(long) <- NULL
-  long <- long %>%
+  long <- long |>
     mutate(yname = strtrim(.data$zname, nchar(.data$zname) - 2L),
            x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
-           xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
-    mutate(refcode = set_refcodes(data = .),
+           xname = ifelse(.data$yname == "wfh", "hgt", "age")) |>
+    mutate(refcode = set_refcodes(data = pick(everything())),
            y = z2y(z = .data$z,
                    x = .data$x,
                    refcode = .data$refcode,
@@ -97,6 +97,6 @@ transform2y <- function(data,
     sub <- long[long$yname == nm, c("row", "y")]
     result[[nm]] <- sub$y[match(result$row, sub$row)]
   }
-  result %>%
+  result |>
     select(-"row")
 }

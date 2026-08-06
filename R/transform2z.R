@@ -61,19 +61,19 @@ transform2z <- function(data,
   if ("hgt" %in% vars) xhgt <- data$hgt
 
   # calculate Z-scores for all ynames using long form
-  wide <- data %>%
+  wide <- data |>
     mutate(row = row_number(),
-           xhgt = !! xhgt) %>%
+           xhgt = !! xhgt) |>
     select(all_of(c("row", "age", "xhgt", "sex", "ga", todo)))
   long <- wide[rep(seq_len(nrow(wide)), times = length(todo)),
                c("row", "age", "xhgt", "sex", "ga")]
   long$yname <- rep(todo, each = nrow(wide))
   long$y <- unlist(wide[todo], use.names = FALSE)
   rownames(long) <- NULL
-  long <- long %>%
+  long <- long |>
     mutate(x = ifelse(.data$yname == "wfh", .data$xhgt, .data$age),
-           xname = ifelse(.data$yname == "wfh", "hgt", "age")) %>%
-    mutate(refcode = set_refcodes(data = .),
+           xname = ifelse(.data$yname == "wfh", "hgt", "age")) |>
+    mutate(refcode = set_refcodes(data = pick(everything())),
            z = y2z(y = .data$y,
                    x = .data$x,
                    refcode = .data$refcode,
@@ -87,7 +87,7 @@ transform2z <- function(data,
     sub <- long[long$yname == nm, c("row", "z")]
     result[[nm]] <- sub$z[match(result$row, sub$row)]
   }
-  result %>%
-    select(-"row") %>%
-    rename_with(paste0, names(.), "_z")
+  result <- result |>
+    select(-"row")
+  rename_with(result, paste0, names(result), "_z")
 }
